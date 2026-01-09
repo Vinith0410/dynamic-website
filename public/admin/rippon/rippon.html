@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professional Dynamic Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/admin/rippon/css/rippon.css">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Dynamic Input Form</h2>
+    <p>Add or remove input fields</p>
+
+    <form action="/rippon/add" method="post">
+        <div id="inputGroup">
+            <div class="input-row">
+                <input type="text" name="ribbon" placeholder="Enter value" required>
+            </div>
+        </div>
+
+        <button type="button" class="add-btn" id="addField">+ Add Field</button>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<script src="/public/admin/rippon/js/rippon.js"></script>
+
+</body>
+</html>

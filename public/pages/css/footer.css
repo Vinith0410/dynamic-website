@@ -1,0 +1,167 @@
+/* ================= FOOTER ================= */
+.site-footer {
+  background-color: #0d1b2a; /* dark blue/gray background */
+  color: #f0f4f8; /* light text */
+  padding: 60px 20px 30px;
+  font-family: 'Arial', sans-serif;
+}
+
+.site-footer a {
+  color: #f0f4f8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+  color: #007BFF; /* primary blue hover */
+}
+
+/* Container */
+.site-footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Footer Grid */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+/* Footer Columns */
+.footer-col h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.footer-col p,
+.footer-col .tagline,
+.footer-col .item div {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #cfd8dc;
+}
+
+/* Social Links */
+.footer-col .socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.footer-col .socials a.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #1b2a47;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.footer-col .socials a.social-link:hover {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+/* Lists */
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-list li {
+  margin-bottom: 10px;
+}
+
+.footer-list li a {
+  font-size: 0.95rem;
+  color: #cfd8dc;
+}
+
+.footer-list li a:hover {
+  color: #007BFF;
+}
+
+/* Contact items */
+.footer-contact .item {
+  margin-bottom: 10px;
+}
+
+.footer-contact .item label {
+  font-weight: 600;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #1b2a47;
+  padding-top: 15px;
+  color: #cfd8dc;
+}
+
+/* Brand line in footer bottom */
+.footer-bottom span#footerBrandLine {
+  font-weight: 600;
+  color: #007BFF;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .footer-col h4 {
+    text-align: center;
+  }
+
+  .footer-col .socials {
+    text-align: center;
+  }
+
+  .footer-bottom {
+    font-size: 0.85rem;
+  }
+}
+
+/* Very small mobile */
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 40px 15px 20px;
+  }
+
+  .footer-col p,
+  .footer-col .tagline,
+  .footer-col .item div {
+    font-size: 0.85rem;
+  }
+
+  .footer-list li a {
+    font-size: 0.85rem;
+  }
+}

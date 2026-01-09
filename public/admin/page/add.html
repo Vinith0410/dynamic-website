@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Page</title>
+    <link rel="stylesheet" href="/public/admin/page/css/add.css">
+</head>
+<body>
+
+<form action="/page/add" method="post" enctype="multipart/form-data">
+
+    <label>Navigation title</label>
+    <input type="text" name="navigation_title" placeholder="Site title">
+
+    <!-- ================= PAGE 1 ================= -->
+    <h3>PAGE 1</h3>
+    <input type="text" name="page_1" placeholder="Page 1 title Like Home">
+    <h3>Image slider content </h3>
+    <label>Image slider 1</label>
+    <input type="file" name="page1img1">
+    <input type="text" name="page1img1_headings" placeholder="image slider heading">
+    <input type="text" name="page1img1_details" placeholder="image slider details">
+    <input type="text" name="page1img1_button" placeholder="image slider button">
+
+    <label>Image slider 2</label>
+    <input type="file" name="page1img2">
+    <input type="text" name="page1img2_headings" placeholder="image slider heading">
+    <input type="text" name="page1img2_details" placeholder="image slider details">
+    <input type="text" name="page1img2_button" placeholder="image slider button">
+
+    <label>Image slider 3</label>
+    <input type="file" name="page1img3">
+    <input type="text" name="page1img3_headings" placeholder="image slider heading">
+    <input type="text" name="page1img3_details" placeholder="image slider details">
+    <input type="text" name="page1img3_button" placeholder="image slider button">
+
+    <label>Image slider 4</label>
+    <input type="file" name="page1img4">
+    <input type="text" name="page1img4_headings" placeholder="image slider heading">
+    <input type="text" name="page1img4_details" placeholder="image slider details">
+    <input type="text" name="page1img4_button" placeholder="image slider button">
+
+    <div id="page1sec1">
+        <label>About section </label>
+        <input type="text" name="page1sec1_name" placeholder="about section Name">
+        <input type="text" name="page1sec1_details" placeholder="about section details">
+        <input type="file" name="page1sec1_file" placeholder="about section image">
+        <input type="text" name="page1sec1_button" placeholder="about section button">
+    </div>
+
+    <div class="feature-form-grid">
+
+      <!-- FEATURE 1 -->
+      <div class="feature-input-card">
+        <h3>Feature 1</h3>
+
+        <div class="input-group">
+          <label>Icon / Image</label>
+          <input type="file" name="feature1img" required>
+        </div>
+
+        <div class="input-group">
+          <label>Title</label>
+          <input type="text" name="feature1title" placeholder="Fast Delivery" required>
+        </div>
+
+        <div class="input-group">
+          <label>Subheading</label>
+          <input type="text" name="feature1subtitle" placeholder="Quick and reliable service" required>
+        </div>
+      </div>
+
+      <!-- FEATURE 2 -->
+      <div class="feature-input-card">
+        <h3>Feature 2</h3>
+
+        <div class="input-group">
+          <label>Icon / Image</label>
+          <input type="file" name="feature2img" required>
+        </div>
+
+        <div class="input-group">
+          <label>Title</label>
+          <input type="text" name="feature2title" placeholder="Safe & Secure" required>
+        </div>
+
+        <div class="input-group">
+          <label>Subheading</label>
+          <input type="text" name="feature2subtitle" placeholder="100% safe payments" required>
+        </div>
+      </div>
+
+      <!-- FEATURE 3 -->
+      <div class="feature-input-card">
+        <h3>Feature 3</h3>
+
+        <div class="input-group">
+          <label>Icon / Image</label>
+          <input type="file" name="feature3img" required>
+        </div>
+
+        <div class="input-group">
+          <label>Title</label>
+          <input type="text" name="feature3title" placeholder="Gift Wrapping" required>
+        </div>
+
+        <div class="input-group">
+          <label>Subheading</label>
+          <input type="text" name="feature3subtitle" placeholder="Beautiful gift packaging" required>
+        </div>
+      </div>
+
+      <!-- FEATURE 4 -->
+      <div class="feature-input-card">
+        <h3>Feature 4</h3>
+
+        <div class="input-group">
+          <label>Icon / Image</label>
+          <input type="file" name="feature4img" required>
+        </div>
+
+        <div class="input-group">
+          <label>Title</label>
+          <input type="text" name="feature4title" placeholder="24/7 Support" required>
+        </div>
+
+        <div class="input-group">
+          <label>Subheading</label>
+          <input type="text" name="feature4subtitle" placeholder="Always here to help" required>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIBBON -->
+    <label>Ribbon (Primary)</label>
+    <select name="ribbonPrimary" id="ribbonSelect1">
+        <option value="">Select Ribbon</option>
+    </select>
+
+    <label>Ribbon (Secondary)</label>
+    <select name="ribbonSecondary" id="ribbonSelect2">
+        <option value="">Select Ribbon</option>
+    </select>
+
+    <!-- 🔥 NEW FIELD -->
+<label>Number of Categories</label>
+<input type="number" id="categoryCount" min="1" placeholder="Enter category count">
+
+<!-- CATEGORY CONTAINER -->
+<div id="categoryContainer"></div>
+
+<!-- FEEDBACK -->
+ <div id="feedbacks">
+  <h2>feed back</h2>
+  <input type="text" name="feedback1name" placeholder="feedback name 1">
+  <input type="text" name="feedback1sub" placeholder="feedback email 1">
+  <textarea name="feedback1message" placeholder="feedback message 1"></textarea>
+ </div>
+ <!-- FEEDBACK 2 -->
+ <div id="feedbacks">
+  <input type="text" name="feedback2name" placeholder="feedback name 2">
+  <input type="text" name="feedback2sub" placeholder="feedback email 2">
+  <textarea name="feedback2message" placeholder="feedback message 2"></textarea>
+ </div>
+ <!-- FEEDBACK 3 -->
+ <div id="feedbacks">
+  <input type="text" name="feedback3name" placeholder="feedback name 3">
+  <input type="text" name="feedback3sub" placeholder="feedback email 3">
+  <textarea name="feedback3message" placeholder="feedback message 3"></textarea>
+ </div>
+ <!-- FEEDBACK 4 -->
+ <div id="feedbacks">
+  <input type="text" name="feedback4name" placeholder="feedback name 4">
+  <input type="text" name="feedback4sub" placeholder="feedback email 4">
+  <textarea name="feedback4message" placeholder="feedback message 4"></textarea>
+ </div>
+
+    <!-- ================= PAGE 2 ================= -->
+    <h3>PAGE 2</h3>
+    <input type="text" name="page_2" placeholder="Page 2 title">
+    <input type="file" name="page2img1">
+    <input type="text" name="page2img1_headings" placeholder="Section Heading">
+    <input type="text" name="page2img1_details" placeholder=" Section Details">
+
+    <section class="page2sec1">
+    <div class="page2sec1-title">
+      <h2>About US</h2>
+    <input type="text" name="page2sec1_name" placeholder="About section Title">
+    <input type="text" name="page2sec1_subtitle" placeholder="About section Subtitle">
+    </div>
+
+  <div class="about">
+    <div class="image-box">
+      <input type="file" name="page2sec1_file" placeholder="About Image URL">
+    </div>
+
+    <div class="about-content">
+      <input type="text" name="page2sec1_heading" placeholder="About Section  Heading">
+      <textarea name="page2sec1_details" placeholder="About Section Description"></textarea>
+    </div>
+  </div>
+</section>
+
+<div class="admin-container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>About Page Content</h1>
+      <p>Manage Mission and Vision sections displayed on the About page</p>
+    </div>
+
+    <!-- ================= MISSION ================= -->
+    <div class="content-card">
+
+      <div class="card-title">Mission</div>
+      <div class="card-subtitle">Define your company’s purpose and core objectives</div>
+
+      <div class="input-group">
+        <label><b>Mission Title</b></label>
+        <input type="text" name="missiontitle" placeholder="Our Mission" required>
+      </div>
+
+      <div class="input-group">
+        <label>Mission Description</label>
+        <textarea name="missiondescription" placeholder="Brief description about your mission" required></textarea>
+      </div>
+
+      <div class="points-grid">
+        <div class="input-group">
+          <label>Mission Point 1</label>
+          <input type="text" name="mission1" placeholder="point title" required>
+          <input type="text" name="mission1description" placeholder="point description">
+        </div>
+        <div class="input-group">
+          <label>Mission Point 2</label>
+          <input type="text" name="mission2" placeholder="point title" required>
+          <input type="text" name="mission2description" placeholder="point description">
+        </div>
+        <div class="input-group">
+          <label>Mission Point 3</label>
+          <input type="text" name="mission3" placeholder="point title" required>
+          <input type="text" name="mission3description" placeholder="point description">
+        </div>
+        <div class="input-group">
+          <label>Mission Point 4</label>
+          <input type="text" name="mission4" placeholder="point title" required>
+          <input type="text" name="mission4description" placeholder="point description">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================= VISION ================= -->
+    <div class="content-card">
+
+      <div class="card-title">Vision</div>
+      <div class="card-subtitle">Describe your long-term goals and future direction</div>
+
+      <div class="input-group">
+        <label><b>Vision Title</b></label>
+        <input type="text" name="visiontitle" placeholder="Our Vision title" required>
+      </div>
+
+      <div class="input-group">
+        <label>Vision Description</label>
+        <textarea name="visiondescription" placeholder="Brief description about your vision" required></textarea>
+      </div>
+
+      <div class="points-grid">
+        <div class="input-group">
+          <label>Vision Point 1</label>
+          <input type="text" name="vision1" placeholder="point title" required>
+          <input type="text" name="vision1description" placeholder="point description">
+        </div>
+        <div class="input-group">
+          <label>Vision Point 2</label>
+          <input type="text" name="vision2" placeholder="point title" required>
+          <input type="text" name="vision2description" placeholder="point description">
+        </div>
+        <div class="input-group">
+          <label>Vision Point 3</label>
+          <input type="text" name="vision3" placeholder="point title" required>
+          <input type="text" name="vision3description" placeholder="point description">
+        </div>
+        <div class="input-group">
+          <label>Vision Point 4</label>
+          <input type="text" name="vision4" placeholder="point title" required>
+          <input type="text" name="vision4description" placeholder="point description">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+<!-- ================= WHY US ================= -->
+<section class="page2sec3">
+  <div class="page2sec3-title">
+    <h2>Why Choose US</h2>
+    <input type="text" name="page2sec3_name" placeholder="Why Choose Section Title">
+    <input type="text" name="page2sec3_subtitle" placeholder="Why Choose Subtitle">
+  </div>
+
+  <div class="why-us">
+    <ul>
+      <li><input type="text" name="page2sec3_feature1" placeholder="Feature 1"></li>
+      <li><input type="text" name="page2sec3_feature2" placeholder="Feature 2"></li>
+      <li><input type="text" name="page2sec3_feature3" placeholder="Feature 3"></li>
+      <li><input type="text" name="page2sec3_feature4" placeholder="Feature 4"></li>
+      <li><input type="text" name="page2sec3_feature5" placeholder="Feature 5"></li>
+    </ul>
+
+    <div class="image-box">
+      <input type="file" name="page2sec3_file" placeholder="Why Choose Image URL">
+    </div>
+  </div>
+ </section>
+
+
+    <!-- ================= PAGE 3 ================= -->
+    <h3>PAGE 3</h3>
+    <input type="text" name="page_3" placeholder="Page 3 title">
+    <input type="file" name="page3img1">
+    <input type="text" name="page3img1_headings" placeholder="Section Heading">
+    <input type="text" name="page3img1_details" placeholder="Section Details">
+
+    <h2>Delivery Process point</h2>
+    <div class="admin-wrapper">
+
+    <div class="content-layout">
+      <!-- IMAGE INPUT -->
+      <div class="image-input">
+        <div class="image-preview-box">
+          Image Upload
+        </div>
+        <input type="file" name="deliveryimg" required>
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="divider"></div>
+
+      <!-- POINTS -->
+      <div class="points-input">
+
+        <div class="point-group">
+          <label>Point 1</label>
+          <input type="text" name="points1" placeholder="Enter point 1" required>
+        </div>
+
+        <div class="point-group">
+          <label>Point 2</label>
+                  <input type="text" name="points2" placeholder="Enter point 2" required>
+        </div>
+
+        <div class="point-group">
+          <label>Point 3</label>
+          <input type="text" name="points3" placeholder="Enter point 3" required>
+        </div>
+
+        <div class="point-group">
+          <label>Point 4</label>
+          <input type="text" name="points4" placeholder="Enter point 4">
+        </div>
+
+        <div class="point-group">
+          <label>Point 5</label>
+          <input type="text" name="points5" placeholder="Enter point 5">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+    <!-- ================= PAGE 4 ================= -->
+    <h3>PAGE 4</h3>
+    <input type="text" name="page_4" placeholder="Page 4 title">
+    <input type="file" name="page4img1">
+    <input type="text" name="page4img1_headings" placeholder="Section Heading">
+    <input type="text" name="page4img1_details" placeholder="Section Details">
+
+    <!-- ================= CONTACT SETTINGS ================= -->
+<section>
+  <div class="section-title">
+    <h2>Contact Page Settings</h2>
+    <p>Manage contact details shown on the website</p>
+  </div>
+
+  <div class="card">
+
+
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" name="dnumber" placeholder="door number">
+        <input type="text" name="streetname" placeholder="street name">
+        <input type="text" name="city" placeholder="city">
+        <input type="text" name="district" placeholder="district">
+        <input type="text" name="state" placeholder="state">
+        <input type="text" name="zipcode" placeholder="zip code">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Primary Phone</label>
+          <input type="text" name="primaryphone" placeholder="+91 98765 43210">
+        </div>
+
+        <div class="form-group">
+          <label>Secondary Phone</label>
+          <input type="text" name="secondaryphone" placeholder="+91 91234 56789">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Support Email</label>
+          <input type="email" name="supportemail" placeholder="support@example.com">
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label>Working Hours</label>
+        <input type="text" name="workinghours" placeholder="Mon – Fri | 9:00 AM – 6:00 PM">
+      </div>
+
+  </div>
+</section>
+
+<div class="form-group">
+      <label>Google Map Embed URL</label>
+      <textarea id="mapUrl" name="mapUrl" placeholder="Paste iframe src URL here"></textarea>
+    </div>
+
+    <br><br>
+
+    <div class="container">
+
+  <div class="header">
+    <h1>Footer Content Management</h1>
+    <p>Manage footer layout and dynamic links</p>
+  </div>
+
+  <div class="footer-grid">
+
+    <!-- COLUMN 1 -->
+    <div class="card">
+      <h2>Brand Information</h2>
+
+      <div class="input">
+        <label>Brand Name</label>
+        <input name="footer.brand" placeholder="Enter your brand name">
+      </div>
+
+      <div class="input">
+        <label>Tagline</label>
+        <input name="footer.tagline" placeholder="Enter your brand tagline">
+      </div>
+
+      <div class="input">
+        <label>Description</label>
+        <textarea name="footer.description" placeholder="Enter your brand description"></textarea>
+      </div>
+
+      <div class="input">
+        <label>Facebook</label>
+        <input name="footer.facebook" placeholder="Enter your Facebook URL">
+      </div>
+      <div class="input">
+        <label>Instagram</label>
+        <input name="footer.instagram" placeholder="Enter your Instagram URL">
+      </div>
+      <div class="input">
+        <label>Twitter</label>
+        <input name="footer.twitter" placeholder="Enter your Twitter URL">
+      </div>
+      <div class="input">
+        <label>YouTube</label>
+        <input name="footer.youtube" placeholder="Enter your YouTube URL">
+      </div>
+    </div>
+
+    <!-- COLUMN 2 -->
+    <div class="card" style="display: none;">
+      <h2>Quick Links</h2>
+      <ul class="list" id="quickLinks"></ul>
+    </div>
+
+    <!-- COLUMN 3 -->
+    <div class="card" style="display: none;">
+      <h2>Categories</h2>
+      <ul class="list" id="categoryLinks"></ul>
+    </div>
+
+    <!-- COLUMN 4 -->
+    <div class="card">
+      <h2>Contact Info</h2>
+
+      <div class="input">
+        <label>Address</label>
+        <textarea name="footer.address" placeholder="Enter your brand address"></textarea>
+      </div>
+
+      <div class="input">
+        <label>Phone</label>
+        <input name="footer.phone" placeholder="Enter your brand phone number">
+      </div>
+
+      <div class="input">
+        <label>Email</label>
+        <input name="footer.email" placeholder="Enter your brand email">
+      </div>
+
+      <div class="input">
+        <label>Store Hours</label>
+        <input name="footer.hours" placeholder="Enter your brand store hours">
+      </div>
+    </div>
+
+  </div>
+
+</div>
+    <input type="submit"  value="Save Data">
+
+</form>
+
+
+<script src="/public/admin/page/js/script.js"></script>
+
+</body>
+</html>

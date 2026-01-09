@@ -1,0 +1,154 @@
+/* ===== HERO SLIDER ===== */
+#slider {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  overflow: hidden;
+}
+
+/* SLIDE */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1s ease, transform 1.5s ease;
+}
+
+/* ACTIVE SLIDE */
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+/* IMAGE */
+/* IMAGE */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* IMPORTANT */
+}
+
+
+/* OVERLAY */
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(2,6,23,.85),
+    rgba(2,6,23,.35),
+    rgba(2,6,23,.1)
+  );
+}
+
+/* CONTENT WRAPPER */
+.hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  z-index: 2;
+}
+
+/* CONTENT BOX */
+.hero-inner {
+  max-width: 850px;
+  color: #fff;
+}
+
+/* TEXT ANIMATIONS */
+.hero-inner h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.hero-inner p {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  color: #e5e7eb;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* BUTTON */
+.hero-inner button {
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg,#38bdf8,#2563eb);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(37,99,235,.35);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.hero-inner button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(37,99,235,.45);
+}
+
+/* ACTIVE TEXT ANIMATION */
+.slide.active .hero-inner h1 {
+  animation: textIn .8s ease forwards .4s;
+}
+
+.slide.active .hero-inner p {
+  animation: textIn .8s ease forwards .6s;
+}
+
+.slide.active .hero-inner button {
+  animation: textIn .8s ease forwards .8s;
+}
+
+/* KEYFRAME */
+@keyframes textIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  #slider {
+    height: 65vh; /* better mobile height */
+  }
+
+  .slide img {
+    object-fit: contain;   /* SHOW FULL IMAGE */
+    background: #9a9a9a;   /* fill empty space */
+  }
+
+  .slide::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(2,6,23,.75),
+      rgba(2,6,23,.55)
+    );
+  }
+
+  .hero-content {
+    align-items: center;
+    /* padding-bottom: 20px; */
+  }
+
+  .hero-inner {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+

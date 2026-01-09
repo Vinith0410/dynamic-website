@@ -1,0 +1,116 @@
+.info-section {
+  padding: 20px 10%;
+  background: #f6f9ff;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.section-title p {
+  max-width: 700px;
+  color: #555;
+  margin-bottom: 50px;
+}
+
+/* TIMELINE */
+.timeline {
+  position: relative;
+  margin-top: 40px;
+}
+
+/* Vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(#3b82f6, #60a5fa);
+  transform: translateX(-50%);
+}
+
+/* Item */
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 30px 40px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Left / Right */
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-item.right {
+  left: 50%;
+  text-align: left;
+}
+
+/* Dot */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  width: 16px;
+  height: 16px;
+  background: #3b82f6;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.timeline-item.left::before {
+  right: -8px;
+}
+
+.timeline-item.right::before {
+  left: -8px;
+}
+
+/* Card */
+.timeline-card {
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.timeline-card h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.timeline-card p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 20px;
+    text-align: left;
+    left: 0 !important;
+  }
+
+  .timeline-item::before {
+    left: 12px !important;
+  }
+}

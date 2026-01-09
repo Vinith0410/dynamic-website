@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Manage Categories</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/admin/category/css/listcategory.css">
+
+</head>
+
+<body>
+
+<div class="container">
+  <h2 class="category-title">Manage Categories</h2>
+  <div id="category-manager-grid" class="category-manager-grid"></div>
+</div>
+
+<!-- ===== EDIT POPUP ===== -->
+<div class="modal" id="editModal">
+  <div class="modal-box">
+    <h3>Edit Category</h3>
+
+    <img id="editPreview" class="preview-img">
+    <input type="file" id="editImage">
+
+    <input type="text" id="editName" placeholder="Category name">
+
+    <div class="modal-actions">
+      <button class="btn-sm btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn-sm" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="/public/admin/category/js/listcategory.js"></script>
+
+</body>
+</html>

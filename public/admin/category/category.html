@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Management</title>
+    <link rel="stylesheet" href="/public/admin/category/css/category.css">
+</head>
+<body>
+
+<div class="card">
+    <h1>Category Setup</h1>
+
+    <form action="/category/add" method="POST" enctype="multipart/form-data">
+
+        <!-- IMAGE UPLOAD -->
+        <label>Category Image</label>
+
+        <div class="preview-box">
+            <span class="preview-text">Image Preview</span>
+            <img id="previewImage">
+        </div>
+
+        <input type="file" name="categoryImage" id="imageInput" required>
+
+        <!-- CATEGORY -->
+        <label>Category Name</label>
+        <input type="text" name="category" placeholder="Enter category name" required>
+
+        <!-- SUB CATEGORY -->
+        <label>Sub Categories</label>
+
+        <div id="subCategoryContainer">
+            <input type="text" name="subcategory[]" placeholder="Enter sub-category" required>
+        </div>
+
+        <button type="button" class="add-btn" id="addSubCategory">
+            + Add Sub-Category
+        </button>
+
+        <button type="submit" class="submit-btn">
+            Submit Category
+        </button>
+    </form>
+</div>
+
+<script src="/public/admin/category/js/script.js"></script>
+
+</body>
+</html>

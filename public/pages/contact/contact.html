@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Us</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<!-- Preloader -->
+<link rel="stylesheet" href="/public/pages/css/preloader.css">
+
+<link rel="stylesheet" href="/public/pages/css/navbar.css">
+<link rel="stylesheet" href="/public/pages/css/footer.css">
+<link rel="stylesheet" href="/public/pages/css/hero.css">
+<link rel="stylesheet" href="/public/pages/contact/css/contact.css">
+</head>
+
+<body>
+
+  <nav class="main-nav">
+  <div class="nav-left">
+    <h2 id="navTitle" class="logo"></h2>
+  </div>
+
+  <div class="nav-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul id="navLinks" class="nav-links"></ul>
+</nav>
+
+<!-- HERO -->
+<header id="hero"></header>
+
+<section class="contact-info">
+  <div class="contact-container">
+    <h2 style="margin-bottom:14px">Get in Touch</h2>
+    <div id="contact-grid" class="contact-grid"></div>
+    <div id="contact-actions" class="contact-actions"></div>
+  </div>
+</section>
+
+<section id="mapPreview" class="map-section" style="display:none;">
+  <div class="contact-container">
+    <div class="section-title">
+      <h2>Location</h2>
+      <p>Find us on Google Maps</p>
+    </div>
+    <div class="map-wrapper">
+      <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <h4 id="footerBrand"></h4>
+        <div class="tagline" id="footerTagline"></div>
+        <p id="footerDesc"></p>
+        <div class="socials" id="footerSocials"></div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-list" id="footerQuick"></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul class="footer-list" id="footerCats"></ul>
+      </div>
+      <div class="footer-col footer-contact">
+        <h4>Contact</h4>
+        <div class="item"><label>Address</label><div id="footerAddress"></div></div>
+        <div class="item"><label>Phone</label><div id="footerPhone"></div></div>
+        <div class="item"><label>Email</label><div id="footerEmail"></div></div>
+        <div class="item"><label>Hours</label><div id="footerHours"></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="footerYear"></span> <span id="footerBrandLine"></span></div>
+  </div>
+ </footer>
+
+ <!-- Preloader Script (Load First) -->
+ <script src="/public/pages/js/preloader.js"></script>
+
+ <script src="/public/pages/contact/js/script.js"></script>
+ <script src="/public/pages/js/navbar.js"></script>
+ <script src="/public/pages/js/footer.js"></script>
+
+</body>
+</html>

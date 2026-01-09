@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Product</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/admin/product/css/editproduct.css">
+<style>
+
+</style>
+</head>
+<body>
+
+<div class="card">
+<h1>Edit Product</h1>
+
+<form id="editForm" method="POST" enctype="multipart/form-data">
+
+<!-- IMAGE -->
+<label>Product Image</label>
+<div class="preview-box">
+    <img id="previewImage">
+</div>
+<input type="file" id="imageInput" name="image">
+
+<!-- NAME -->
+<label>Product Name</label>
+<input type="text" name="name" required>
+
+<!-- RIBBON -->
+<label>Ribbon</label>
+<select name="ribbon" id="ribbonSelect">
+    <option value="">Select Ribbon</option>
+</select>
+
+<!-- CATEGORY -->
+<label>Categories</label>
+<div id="categoryContainer"></div>
+<button type="button" class="icon-btn add" onclick="addCategory()">+</button>
+
+<!-- SUB CATEGORY -->
+<label>Sub Categories</label>
+<div id="subCategoryContainer"></div>
+<button type="button" class="icon-btn add" onclick="addSubCategory()">+</button>
+
+<!-- DESCRIPTION -->
+<label>Description</label>
+<textarea name="description" required></textarea>
+
+<!-- PRICE -->
+<div class="price-grid">
+    <div>
+        <label>Price (₹)</label>
+        <input type="number" name="price" id="priceInput" required>
+    </div>
+    <div>
+        <label>Old Price (₹)</label>
+        <input type="number" name="oldPrice" id="oldPriceInput" required>
+    </div>
+    <div>
+        <label>Discount (%)</label>
+        <input type="number" name="discount" id="discountInput" readonly>
+    </div>
+</div>
+
+<!-- DELIVERY -->
+<label>Delivery Info</label>
+<input type="text" name="delivery" required>
+
+<label>Delivery Charges (Optional)</label>
+<input type="text" name="deliveryCharge" placeholder="Enter delivery charges">
+
+<!-- STOCK -->
+<label>Stock Status</label>
+<div class="radio-group">
+<label><input type="radio" name="stock" value="in"> In Stock</label>
+<label><input type="radio" name="stock" value="out"> Out of Stock</label>
+</div>
+
+<button class="submit-btn">Update Product</button>
+</form>
+</div>
+
+<script src="/public/admin/product/js/editproduct.js"></script>
+
+</body>
+</html>

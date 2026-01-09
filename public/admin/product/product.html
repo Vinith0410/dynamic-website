@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Product Upload</title>
+<link rel="stylesheet" href="/public/admin/product/css/product.css">
+
+</head>
+<body>
+
+<div class="card">
+<h1>Product Upload</h1>
+
+<form action="/product/add" method="POST" enctype="multipart/form-data">
+
+<!-- PRODUCT NAME -->
+<label>Product Name</label>
+<input type="text" name="name" placeholder="Enter product name" required>
+
+<!-- IMAGE -->
+<label>Product Image</label>
+<div class="preview-box">
+<span class="preview-text">Image Preview</span>
+<img id="previewImage">
+</div>
+<input type="file" id="imageInput" name="image" required>
+
+<!-- RIBBON -->
+<label>Ribbon (e.g. New, Trending, Sale)</label>
+<select name="ribbon" id="ribbonSelect">
+    <option value="">Select Ribbon</option>
+</select>
+
+<!-- CATEGORY -->
+<label>Categories</label>
+<div id="categoryContainer"></div>
+<button type="button" class="icon-btn add" onclick="addCategory()">+</button>
+
+<!-- SUB CATEGORY -->
+<label>Sub Categories</label>
+<div id="subCategoryContainer"></div>
+<button type="button" class="icon-btn add" onclick="addSubCategory()">+</button>
+
+<label>Product Description</label>
+<textarea name="description" placeholder="Enter product description" required></textarea>
+
+<!-- PRICING -->
+<div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:15px;">
+    <div>
+        <label>Price (₹)</label>
+        <input type="number" name="price" id="priceInput" required>
+    </div>
+    <div>
+        <label>Old Price (₹)</label>
+        <input type="number" name="oldPrice" id="oldPriceInput" required>
+    </div>
+    <div>
+        <label>Discount (%)</label>
+        <input type="number" name="discount" id="discountInput" value="0" readonly>
+    </div>
+</div>
+
+<!-- DELIVERY -->
+<label>Delivery Info</label>
+<input type="text" name="delivery" placeholder="e.g. Free delivery • 2-3 days" required>
+
+<label>Delivery Charges (Optional)</label>
+<input type="text" name="deliveryCharge" placeholder="Enter delivery charges">
+
+<!-- STOCK -->
+<label>Stock Status</label>
+<div class="radio-group">
+<label><input type="radio" name="stock" value="in" checked> In Stock</label>
+<label><input type="radio" name="stock" value="out"> Out of Stock</label>
+</div>
+
+<button class="submit-btn">Submit Product</button>
+
+</form>
+</div>
+
+<script src="/public/admin/product/js/product.js"></script>
+
+</body>
+</html>

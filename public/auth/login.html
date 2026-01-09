@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>login</title>
+  <link rel="stylesheet" href="/public/auth/style.css">
+
+</head>
+<body>
+
+
+
+  <form action="/acc/login" method="POST">
+      <h2>Login Page</h2>
+    <label for="mail">Mail:</label><br>
+    <input type="text" id="mail" name="email" required><br><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required>
+    <p><a href="/forgot-password">Forgot Password?</a></p>
+    <input type="submit" value="Login">
+    <p class="account">If You Don't Have An Account, Please <a href="/register">Register</a></p>
+  </form>
+
+
+
+</body>
+</html>

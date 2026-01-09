@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>List Rippons</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="/public/admin/rippon/css/listrippon.css">
+
+</head>
+
+<body>
+
+<div class="container">
+    <h2>All Rippons</h2>
+    <table>
+        <thead>
+            <tr><th>#</th><th>Ribbon</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" id="editModal">
+    <div class="modal-box">
+        <h3>Edit Rippon</h3>
+        <input type="text" id="editInput">
+        <button class="save" onclick="saveEdit()">Save</button>
+        <button class="cancel" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<script src="/public/admin/rippon/js/listrippon.js"></script>
+
+
+
+</body>
+</html>

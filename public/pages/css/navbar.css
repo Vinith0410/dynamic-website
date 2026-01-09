@@ -1,0 +1,268 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== NAVBAR BASE ===== */
+.main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.2);
+}
+
+/* LOGO */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+/* LINKS */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links li a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color .3s ease;
+}
+
+/* Hover underline animation */
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: width .3s ease;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a.active::after {
+  width: 100%;
+}
+
+.nav-links li a.active {
+  color: #38bdf8;
+}
+
+/* ACTION BUTTONS */
+.nav-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .3s ease;
+}
+
+/* Login default */
+.nav-btn.login {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Login success */
+.nav-btn.login.logged {
+  background: #16a34a; /* GREEN */
+}
+
+/* Cart */
+.nav-btn.cart {
+  background: #334155;
+  color: #fff;
+}
+
+/* ===== TOGGLE (MOBILE) ===== */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  margin: 4px 0;
+  transition: .3s;
+}
+
+.nav-btn.login {
+  background: #2563eb;
+  color: #fff;
+}
+
+.nav-btn.cart {
+  background: #16a34a;
+  color: #fff;
+}
+
+/* BURGER TO X ANIMATION */
+.nav-toggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(10px, -10px);
+}
+
+.nav-actions{
+  display: flex;
+}
+/* ===== MOBILE VIEW ===== */
+@media (max-width: 900px) {
+
+  /* FULL SCREEN NAV PANEL */
+  .nav-links {
+    position: fixed;
+    inset: 0; /* top right bottom left = 0 */
+    width: 100vw;
+    height: 100vh;
+
+    background: rgba(2, 6, 23, 0.85); /* transparent dark */
+    backdrop-filter: blur(10px);     /* glass effect */
+    -webkit-backdrop-filter: blur(10px);
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 26px;
+    padding: 0;
+
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.45s ease;
+  }
+
+  /* SHOW STATE */
+  .nav-links.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* NAV LINKS BIGGER */
+  .nav-links li a {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  /* BUTTONS CENTER */
+  .nav-actions {
+    margin-top: 20px;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .nav-actions .nav-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  /* SHOW TOGGLE */
+  .nav-toggle {
+    display: flex;
+    z-index: 1100;
+  }
+}
+
+/* ===== CART & AUTH LINKS ===== */
+.cart-link,
+.login-link,
+.logout-link {
+  position: relative;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.cart-link {
+  background: #334155;
+  color: #fff;
+  font-size: 18px;
+}
+
+.cart-link:hover {
+  background: #475569;
+  transform: translateY(-2px);
+}
+
+.login-link {
+  background: #2563eb;
+  color: #fff;
+}
+
+.login-link:hover {
+  background: #1d4ed8;
+}
+
+.logout-link {
+  background: #ef4444;
+  color: #fff;
+  font-size: 14px;
+}
+
+.logout-link:hover {
+  background: #dc2626;
+}
+
+/* Cart Badge */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  border: 2px solid #0f172a;
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+

@@ -1,0 +1,162 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#f4f4f4;
+  color:#222;
+}
+
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.category-title {
+  font-size: 28px;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.category-manager-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.manage-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+}
+
+.manage-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.manage-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.manage-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+.sub-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.sub-tag {
+  background: #f4f4f4;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.sub-tag button{
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+
+.add-sub-form {
+  display: flex;
+  gap: 10px;
+}
+
+.add-sub-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-outline{
+  background:#fff;
+  color:#333;
+  border:1px solid #ddd;
+}
+
+.btn-danger{
+  background:#e53935;
+}
+
+/* ===== POPUP ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.modal-box{
+  background:#fff;
+  width:360px;
+  border-radius:12px;
+  padding:20px;
+}
+
+.modal-box h3{
+  margin-bottom:15px;
+}
+
+.preview-img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid #ddd;
+  margin-bottom:10px;
+}
+
+.modal-box input{
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}

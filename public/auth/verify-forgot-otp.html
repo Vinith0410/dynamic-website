@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Forgot OTP</title>
+  <link rel="stylesheet" href="/public/auth/style.css">
+</head>
+<body>
+
+  <form action="/acc/verify-forgot-otp" method="post">
+
+    <h2>mail verification</h2>
+
+    <input type="hidden" name="email" id="mail">
+
+    <input type="tel" name="otp" placeholder="Enter the otp" id="otp">
+
+    <button type="submit">Verify OTP</button>
+
+    </form>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      // console.log(params);
+      const email = params.get('mail');
+      // console.log(email);
+      document.getElementById('mail').value = email;
+    </script>
+
+</body>
+</html>

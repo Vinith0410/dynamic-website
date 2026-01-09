@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<!-- Preloader -->
+<link rel="stylesheet" href="/public/pages/css/preloader.css">
+
+<link rel="stylesheet" href="/public/pages/css/navbar.css">
+<link rel="stylesheet" href="/public/pages/css/footer.css">
+<link rel="stylesheet" href="/public/pages/css/hero.css">
+<link rel="stylesheet" href="/public/pages/about/css/about.css">
+<link rel="stylesheet" href="/public/pages/about/css/timeline.css">
+</head>
+
+<body>
+
+<nav class="main-nav">
+  <div class="nav-left">
+    <h2 id="navTitle" class="logo"></h2>
+  </div>
+
+  <div class="nav-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul id="navLinks" class="nav-links"></ul>
+</nav>
+
+<!-- HERO -->
+<header id="hero"></header>
+
+<!-- ABOUT -->
+<section id="aboutSection">
+  <div class="section-title">
+    <h2 id="aboutTitle"></h2>
+    <p id="aboutSubtitle"></p>
+  </div>
+
+  <div class="about-content">
+    <div class="about-image">
+      <img id="aboutImg" alt="About Image">
+    </div>
+    <div class="about-text">
+      <h3 id="aboutHeading"></h3>
+      <p id="aboutDetails"></p>
+    </div>
+  </div>
+</section>
+
+<section class="info-section mission">
+  <div class="section-title">
+    <h2 id="missionTitle"></h2>
+    <p id="missionDetails"></p>
+  </div>
+
+  <div class="timeline" id="missionCards"></div>
+</section>
+
+<section class="info-section vision">
+  <div class="section-title">
+    <h2 id="visionTitle"></h2>
+    <p id="visionDetails"></p>
+  </div>
+
+  <div class="timeline" id="visionCards"></div>
+</section>
+
+
+<!-- WHY US -->
+<section class="whyus-section">
+  <div class="section-title">
+    <h2 id="whyTitle"></h2>
+    <p id="whySubtitle"></p>
+  </div>
+
+  <div class="why-us">
+    <img id="whyImg">
+    <ul id="whyFeatures"></ul>
+  </div>
+</section>
+
+
+<section class="common-cta">
+  <div class="common-cta-inner">
+    <h2>Everything You Need, All in One Place</h2>
+    <p>
+      Discover quality products designed to deliver value, reliability, and
+      satisfaction. Explore our collection and find what suits your needs best.
+    </p>
+    <a href="/products" class="cta-btn">Explore Our Products</a>
+  </div>
+</section>
+
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <h4 id="footerBrand"></h4>
+        <div class="tagline" id="footerTagline"></div>
+        <p id="footerDesc"></p>
+        <div class="socials" id="footerSocials"></div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-list" id="footerQuick"></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul class="footer-list" id="footerCats"></ul>
+      </div>
+      <div class="footer-col footer-contact">
+        <h4>Contact</h4>
+        <div class="item"><label>Address</label><div id="footerAddress"></div></div>
+        <div class="item"><label>Phone</label><div id="footerPhone"></div></div>
+        <div class="item"><label>Email</label><div id="footerEmail"></div></div>
+        <div class="item"><label>Hours</label><div id="footerHours"></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="footerYear"></span> <span id="footerBrandLine"></span></div>
+  </div>
+ </footer>
+
+ <!-- Preloader Script (Load First) -->
+ <script src="/public/pages/js/preloader.js"></script>
+
+ <script src="/public/pages/about/js/script.js"></script>
+ <script src="/public/pages/js/footer.js"></script>
+ <script src="/public/pages/js/navbar.js"></script>
+
+</body>
+</html>

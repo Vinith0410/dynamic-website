@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<!-- Preloader -->
+<link rel="stylesheet" href="/public/pages/css/preloader.css">
+
+<link rel="stylesheet" href="/public/pages/css/navbar.css">
+<link rel="stylesheet" href="/public/pages/home/css/slider.css">
+<link rel="stylesheet" href="/public/pages/home/css/about.css">
+<link rel="stylesheet" href="/public/pages/home/css/specialities.css">
+<link rel="stylesheet" href="/public/pages/home/css/category.css">
+<link rel="stylesheet" href="/public/pages/home/css/ribbon.css">
+<link rel="stylesheet" href="/public/pages/home/css/feedback.css">
+<link rel="stylesheet" href="/public/pages/css/footer.css">
+<link rel="stylesheet" href="/public/pages/css/delivery-point.css">
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-left">
+    <h2 id="navTitle" class="logo"></h2>
+  </div>
+
+  <div class="nav-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul id="navLinks" class="nav-links"></ul>
+</nav>
+
+
+<header id="slider"></header>
+
+<section class="section-wrapper">
+  <div class="section-cards" id="sections"></div>
+</section>
+
+
+<div class="category-card">
+    <h2>Shop by Category</h2>
+    <div class="category-scroll" id="categoryContainer">
+        <!-- Dynamic content -->
+    </div>
+</div>
+
+<!-- PRIMARY RIBBON PRODUCTS -->
+<section class="trending-section" id="primaryRibbonSection">
+    <h2 id="primaryRibbonTitle"></h2>
+    <div class="product-grid" id="primaryRibbonGrid"></div>
+</section>
+
+<!-- SECONDARY RIBBON PRODUCTS -->
+<section class="arrival-section" id="secondaryRibbonSection">
+    <h2 id="secondaryRibbonTitle"></h2>
+    <div class="product-grid" id="secondaryRibbonGrid"></div>
+</section>
+
+
+<!-- DELIVERY & POINTS -->
+<section class="delivery-section">
+  <div class="container">
+        <!-- Section Heading -->
+    <div class="section-title">
+      <h2>Delivery & Points</h2>
+    </div>
+    <div id="delivery-card" class="delivery-card">
+    </div>
+  </div>
+</section>
+
+
+<section class="feedback-section" id="feedbackSection" style="display:none;">
+  <h2>Feedback</h2>
+  <div class="feedback-grid" id="feedbackList"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <h4 id="footerBrand"></h4>
+        <div class="tagline" id="footerTagline"></div>
+        <p id="footerDesc"></p>
+        <div class="socials" id="footerSocials"></div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-list" id="footerQuick"></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul class="footer-list" id="footerCats"></ul>
+      </div>
+      <div class="footer-col footer-contact">
+        <h4>Contact</h4>
+        <div class="item"><label>Address</label><div id="footerAddress"></div></div>
+        <div class="item"><label>Phone</label><div id="footerPhone"></div></div>
+        <div class="item"><label>Email</label><div id="footerEmail"></div></div>
+        <div class="item"><label>Hours</label><div id="footerHours"></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="footerYear"></span> <span id="footerBrandLine"></span></div>
+  </div>
+ </footer>
+
+<!-- Preloader Script (Load First) -->
+<script src="/public/pages/js/preloader.js"></script>
+
+<script src="/public/pages/home/js/script.js"></script>
+<script src="/public/pages/js/navbar.js"></script>
+<script src="/public/pages/js/footer.js"></script>
+<script src="/public/pages/js/deliverypoint.js"></script>
+
+</body>
+</html>

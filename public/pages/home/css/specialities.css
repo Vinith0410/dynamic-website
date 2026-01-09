@@ -1,0 +1,94 @@
+/* ===== WRAPPER ===== */
+.specialities-wrapper {
+  padding: 60px 20px;
+  background: #ffffff;
+}
+
+.specialities-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #0f172a;
+}
+
+/* ===== GRID ===== */
+.specialities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===== CARD ===== */
+.speciality-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+
+  box-shadow:
+    0 10px 30px rgba(37, 99, 235, 0.12);
+
+  transition: all 0.35s ease;
+}
+
+/* Hover – very light & premium */
+.speciality-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 18px 40px rgba(37, 99, 235, 0.18);
+}
+
+/* ===== IMAGE (ICON STYLE) ===== */
+.speciality-image {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 18px;
+
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 10px 20px rgba(37,99,235,0.35);
+}
+
+.speciality-image img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* make icon white */
+}
+
+/* ===== CONTENT ===== */
+.speciality-content {
+  margin-top: 6px;
+}
+
+.speciality-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 6px;
+}
+
+.speciality-subtitle {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .specialities-title {
+    font-size: 24px;
+  }
+
+  .speciality-card {
+    padding: 24px 16px;
+  }
+}

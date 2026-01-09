@@ -1,0 +1,143 @@
+.about-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 28px;
+  margin-bottom: 60px;
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.08),
+    rgba(22, 163, 74, 0.08)
+  );
+  border-radius: 20px;
+}
+
+/* ===== IMAGE ===== */
+.about-card-image {
+  position: relative;
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.about-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Image zoom only */
+.about-card:hover .about-card-image img {
+  transform: scale(1.08);
+}
+
+/* Soft overlay for depth */
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.05)
+  );
+}
+
+/* ===== CONTENT (ALWAYS VISIBLE) ===== */
+.about-card-content {
+  flex: 1;
+}
+
+.about-card-content h3 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 14px;
+}
+
+.about-card-content p {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: #475569;
+}
+
+
+/* ===== BUTTON ===== */
+.about-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 30px;
+  margin-top: 20px;
+
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  border-radius: 30px;
+
+  box-shadow: 0 8px 20px rgba(34,197,94,0.35);
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover */
+.about-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(34,197,94,0.45);
+}
+
+/* Shine animation */
+.about-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+.about-btn:hover::before {
+  left: 120%;
+}
+
+/* Click */
+.about-btn:active {
+  transform: scale(0.95);
+}
+
+
+/* ===== MOBILE VIEW ===== */
+@media (max-width: 768px) {
+  .about-card {
+    flex-direction: column;
+    padding: 22px;
+    text-align: center;
+  }
+
+  .about-card-image {
+    width: 100%;
+  }
+
+  .about-card-image img {
+    max-height: 280px;
+  }
+  .about-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
