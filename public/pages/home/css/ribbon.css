@@ -52,7 +52,7 @@
 .product-grid {
   display: flex;
   gap: 24px;
-  overflow-x: hidden;
+  overflow-x: auto;
   white-space: nowrap;
   width: 95%;
   margin: 0 auto;

@@ -149,6 +149,7 @@ async function loadHomeRibbonProducts() {
         </div>
       </div>
     `).join('');
+    enableRibbonAutoScroll(primaryRibbonGrid);
   } else {
     primaryRibbonSection.style.display = "none";
   }
@@ -171,10 +172,74 @@ async function loadHomeRibbonProducts() {
         </div>
       </div>
     `).join('');
+    enableRibbonAutoScroll(secondaryRibbonGrid);
   } else {
     secondaryRibbonSection.style.display = "none";
   }
 }
+
+function enableRibbonAutoScroll(container) {
+  if (!container) return;
+  if (container.dataset.scrollerAttached === '1') return;
+
+  const originalItems = Array.from(container.children);
+  if (originalItems.length === 0) return;
+
+  // 1. Setup container for marquee (hide scrollbar, instant jumps)
+  container.style.overflowX = 'hidden';
+  container.style.scrollBehavior = 'auto';
+
+  // 2. Clone items to create the loop buffer
+  // First duplication to establish the cycle
+  originalItems.forEach(item => {
+    container.appendChild(item.cloneNode(true));
+  });
+
+  // Calculate the width of one original set (The Cycle)
+  // Distance from start of first item to start of first clone
+  const firstItem = container.children[0];
+  const firstClone = container.children[originalItems.length];
+  const singleSetWidth = firstClone.offsetLeft - firstItem.offsetLeft;
+
+  // Duplicate more if needed to fill the screen buffer
+  // We need total scrollable width > singleSetWidth + container.clientWidth
+  while (container.scrollWidth <= singleSetWidth + container.clientWidth) {
+    originalItems.forEach(item => {
+      container.appendChild(item.cloneNode(true));
+    });
+  }
+
+  // 3. Animation Loop
+  let scrollSpeed = 0.8; // Smooth speed
+  let animationId;
+  let isHovered = false;
+
+  function step() {
+    if (!isHovered) {
+      container.scrollLeft += scrollSpeed;
+
+      // Reset seamlessly when we've scrolled past the first set
+      if (container.scrollLeft >= singleSetWidth) {
+        container.scrollLeft -= singleSetWidth;
+      }
+    }
+    animationId = requestAnimationFrame(step);
+  }
+
+  // 4. Start
+  animationId = requestAnimationFrame(step);
+
+  // 5. Events (Pause on hover)
+  container.addEventListener('mouseenter', () => { isHovered = true; });
+  container.addEventListener('mouseleave', () => { isHovered = false; });
+
+  // Touch support
+  container.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
+  container.addEventListener('touchend', () => { isHovered = false; });
+
+  container.dataset.scrollerAttached = '1';
+}
+
 
 /* ================= INIT (IMPORTANT PART) ================= */
 Promise.all([
@@ -194,3 +259,10 @@ Promise.all([
     window.preloaderUtils.hide();
   }
 });
+
+/* ================= LOGIN REDIRECT HANDLER ================= */
+// Check if we need to redirect to cart after login
+if (localStorage.getItem('needCartRedirect') === 'true') {
+  localStorage.removeItem('needCartRedirect');
+  window.location.href = '/cart';
+}

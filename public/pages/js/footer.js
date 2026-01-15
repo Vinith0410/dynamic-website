@@ -34,10 +34,20 @@ async function loadFooter(){
     footerQuick.innerHTML = quick.map((t,i)=>`<li><a href="${routes[i]||'#'}">${t}</a></li>`).join('');
     const cats = f.categories || [];
     footerCats.innerHTML = cats.map(c=>`<li><a href="/our-product?category=${encodeURIComponent(c)}">${c}</a></li>`).join('');
-    footerAddress.innerText = f.contact?.address || '';
-    footerPhone.innerText = f.contact?.phone || '';
-    footerEmail.innerText = f.contact?.email || '';
-    footerHours.innerText = f.contact?.hours || '';
+    const contact = f.contact || {};
+    const addressParts = [
+      contact.dnumber,
+      contact.streetname,
+      contact.city,
+      contact.district,
+      contact.state,
+      contact.zipcode
+    ].filter(Boolean);
+    footerAddress.innerText = addressParts.join(', ');
+    const phones = [contact.primaryphone, contact.secondaryphone].filter(Boolean);
+    footerPhone.innerText = phones.join(' / ');
+    footerEmail.innerText = contact.supportemail || '';
+    footerHours.innerText = contact.workinghours || '';
     footerYear.innerText = new Date().getFullYear();
     footerBrandLine.innerHTML =
   (f.brand ? f.brand + ' | ' : '') +

@@ -13,7 +13,16 @@ Promise.all([
   categories=c.map(x=>x.category); // ✅ BACKEND DATA
   buildTabs();
   buildSections();
-  openTab(0);
+  const savedTab=localStorage.getItem('pageListActiveTab');
+  const idx=savedTab!==null?parseInt(savedTab,10):0;
+  const tabsCount=Object.keys(pagesData).length;
+  const finalIdx=Number.isNaN(idx)||idx<0||idx>=tabsCount?0:idx;
+  openTab(finalIdx);
+  const savedScroll=localStorage.getItem('pageListScroll');
+  if(savedScroll!==null){
+    const y=parseInt(savedScroll,10);
+    if(!Number.isNaN(y)) window.scrollTo(0,y);
+  }
 });
 
 /* TABS */
@@ -30,6 +39,7 @@ function buildTabs(){
 function openTab(i){
   document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
   document.querySelectorAll('.section').forEach((s,idx)=>s.classList.toggle('active',idx===i));
+  localStorage.setItem('pageListActiveTab',String(i));
 }
 
 /* SECTIONS */
@@ -55,10 +65,45 @@ function renderObject(obj,title,path){
 }
 
 function renderValue(v,label,path){
-  if(v==null) return '';
-  if(Array.isArray(v)){
-    return v.map((x,i)=>renderValue(x,`${label}.${i+1}`,`${path}.${i}`)).join('');
+  const key=(path.split('.').pop()||'').toLowerCase();
+  if(v==null){
+    const isImageField = key==='file' || key.includes('img') || key.includes('image');
+    if(!isImageField) return '';
+    return `
+    <div class="field">
+      <div class="field-left">
+        <strong>${label}</strong><br>
+        <span>No image found. Please upload image.</span>
+      </div>
+      <div class="actions">
+        <button class="btn edit" onclick="editField('${path}','')">Edit</button>
+      </div>
+    </div>`;
   }
+
+  /* ARRAY HANDLING */
+  if(Array.isArray(v)){
+    const itemsHtml = v.map((x,i)=>renderValue(x,`${label}.${i+1}`,`${path}.${i}`)).join('');
+
+    let addButton = '';
+    const lastKey = path.split('.').pop();
+    if(lastKey === 'ribbons' || lastKey === 'categories' || lastKey === 'feedbacks' || path.includes('quickLinks')){
+        addButton = `
+        <div class="array-actions" style="margin: 10px 0; padding-left: 20px;">
+            <button class="btn edit" onclick="addArrayItem('${path}', '${lastKey}')">
+                + Add to ${lastKey}
+            </button>
+        </div>`;
+    }
+
+    return `
+    <div class="array-container">
+        <div class="array-header" style="font-weight:bold; margin-top:10px;">${label} (${v.length} items)</div>
+        ${itemsHtml}
+        ${addButton}
+    </div>`;
+  }
+
   if(typeof v==='object'){
     return renderObject(v,label,path);
   }
@@ -83,30 +128,36 @@ function editField(path,value){
   const b=m.querySelector('.modal-body');
   b.innerHTML='';
 
+  const lowerPath=path.toLowerCase();
+  const isImageField = lowerPath.endsWith('.file') || lowerPath.includes('img') || lowerPath.includes('image');
+
   /* IMAGE WITH PREVIEW */
-  if(/\.(png|jpg|jpeg|webp)$/i.test(value)){
-    const img=document.createElement('img');
-    img.src='/uploads/'+value;
-    img.style.width='100%';
-    img.style.maxHeight='220px';
-    img.style.objectFit='contain';
-    img.style.border='1px solid #e5e7eb';
-    img.style.borderRadius='8px';
-    img.style.marginBottom='10px';
+  if(/\.(png|jpg|jpeg|webp)$/i.test(value) || isImageField){
+    if(value && /\.(png|jpg|jpeg|webp)$/i.test(value)){
+      const img=document.createElement('img');
+      img.src='/uploads/'+value;
+      img.style.width='100%';
+      img.style.maxHeight='220px';
+      img.style.objectFit='contain';
+      img.style.border='1px solid #e5e7eb';
+      img.style.borderRadius='8px';
+      img.style.marginBottom='10px';
+      b.appendChild(img);
+    }
 
     const input=document.createElement('input');
     input.type='file';
     input.id='imgFile';
     input.accept='image/*';
 
-    /* LIVE PREVIEW */
     input.onchange=()=>{
-      if(input.files[0]){
-        img.src=URL.createObjectURL(input.files[0]);
+      const preview=b.querySelector('img');
+      if(input.files[0] && preview){
+        preview.src=URL.createObjectURL(input.files[0]);
       }
     };
 
-    b.append(img,input);
+    b.appendChild(input);
   }
 
   /* RIBBON */
@@ -151,18 +202,30 @@ async function save(path,b){
   }else{
     fd.append('value',b.querySelector('select,textarea').value);
   }
-  await fetch('/product/api/pages/update-field',{method:'POST',body:fd});
+  const res=await fetch('/page/api/pages/update-field',{method:'POST',body:fd});
+  if(res.ok){
+    alert('Updated successfully ✅');
+  }else{
+    alert('Update failed ❌');
+  }
+  localStorage.setItem('pageListScroll',String(window.scrollY));
   location.reload();
 }
 
 /* DELETE */
 async function deleteField(path,value,type){
   if(!confirm('Delete field?')) return;
-  await fetch('/product/api/pages/delete',{
+  const res=await fetch('/page/api/pages/delete',{
     method:'DELETE',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({path,value,type})
   });
+  if(res.ok){
+    alert('Deleted successfully ✅');
+  }else{
+    alert('Delete failed ❌');
+  }
+  localStorage.setItem('pageListScroll',String(window.scrollY));
   location.reload();
 }
 
@@ -186,4 +249,71 @@ function modal(){
   </div>`;
   document.body.appendChild(m);
   return m;
+}
+
+/* ADD ITEM */
+function addArrayItem(path, type){
+    const m = modal();
+    const b = m.querySelector('.modal-body');
+
+    b.innerHTML = '';
+
+    if(type === 'feedbacks' || path.toLowerCase().includes('feedbacks')){
+        const nameInput=document.createElement('input');
+        nameInput.type='text';
+        nameInput.name='fb-name';
+        nameInput.placeholder='Name';
+        const mailInput=document.createElement('input');
+        mailInput.type='email';
+        mailInput.name='fb-mail';
+        mailInput.placeholder='Email';
+        const msgArea=document.createElement('textarea');
+        msgArea.name='fb-msg';
+        msgArea.placeholder='Feedback';
+        b.append(nameInput,mailInput,msgArea);
+    } else if(type === 'ribbons' || path.toLowerCase().includes('ribbon')){
+        b.append(selectBox(ribbons, ''));
+    } else if(type === 'categories' || path.toLowerCase().includes('categories')){
+        b.append(selectBox(categories, ''));
+    } else {
+        const t = document.createElement('textarea');
+        t.placeholder = 'Enter value';
+        b.appendChild(t);
+    }
+
+    m.querySelector('.save').onclick = () => saveNewItem(path, b);
+    m.style.display = 'flex';
+}
+
+async function saveNewItem(path, b){
+    let payloadValue;
+
+    if(path.toLowerCase().includes('feedbacks')){
+        const nameInput=b.querySelector('input[name=\"fb-name\"]');
+        const mailInput=b.querySelector('input[name=\"fb-mail\"]');
+        const msgArea=b.querySelector('textarea[name=\"fb-msg\"]');
+        const name=(nameInput?.value || '').trim();
+        const mail=(mailInput?.value || '').trim();
+        const msg=(msgArea?.value || '').trim();
+        if(!name || !msg) return alert('Name and feedback required');
+        payloadValue={ name, mail, message: msg };
+    }else{
+        const field=b.querySelector('select,textarea');
+        const val=field?field.value:'';
+        if(!val) return alert('Value cannot be empty');
+        payloadValue=val;
+    }
+
+    const res=await fetch('/page/api/pages/add-array-item', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ path, value: payloadValue })
+    });
+    if(res.ok){
+      alert('Added successfully ✅');
+    }else{
+      alert('Add failed ❌');
+    }
+    localStorage.setItem('pageListScroll',String(window.scrollY));
+    location.reload();
 }

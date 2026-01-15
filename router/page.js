@@ -45,6 +45,18 @@ pagerouter.post(
     ]),
     async (req, res) => {
         try {
+            const ribbonKeys = Object.keys(req.body).filter(k => /^ribbon\d+$/.test(k));
+            ribbonKeys.sort((a, b) => parseInt(a.replace('ribbon', '')) - parseInt(b.replace('ribbon', '')));
+            const ribbons = ribbonKeys
+                .map(k => req.body[k])
+                .filter(r => r && r.trim() !== "");
+
+            const categoryKeys = Object.keys(req.body).filter(k => /^category\d+$/.test(k));
+            categoryKeys.sort((a, b) => parseInt(a.replace('category', '')) - parseInt(b.replace('category', '')));
+            const categories = categoryKeys
+                .map(k => req.body[k])
+                .filter(c => c && c.trim() !== "");
+
             const data = new PageHeader({
                 navigation_title: req.body.navigation_title,
 
@@ -84,21 +96,9 @@ pagerouter.post(
                                 file: req.files.page1sec1_file?.[0]?.filename,
                                 button: req.body.page1sec1_button
                             },
-                            {
-                                ribbonPrimary: req.body.ribbonPrimary,
-                                ribbonSecondary: req.body.ribbonSecondary
-                            }
                         ],
-                        categories: [
-                            req.body.category1,
-                            req.body.category2,
-                            req.body.category3,
-                            req.body.category4,
-                            req.body.category5,
-                            req.body.category6,
-                            req.body.category7,
-                            req.body.category8
-                        ].filter(c => c && c.trim() !== ""),
+                        ribbons,
+                        categories,
                         specialities: [
                             {
                                 image: req.files.feature1img?.[0]?.filename,
@@ -183,6 +183,7 @@ pagerouter.post(
                         why_us: {
                             name: req.body.page2sec3_name,
                             subtitle: req.body.page2sec3_subtitle,
+                        image: req.files.page2sec3_file?.[0]?.filename,
                             features: [
                                 req.body.page2sec3_feature1,
                                 req.body.page2sec3_feature2,
@@ -278,10 +279,16 @@ pagerouter.post(
                             req.body.category8
                         ].filter(c => c && c.trim() !== ""),
                         contact: {
-                            address: req.body['footer.address'],
-                            phone: req.body['footer.phone'],
-                            email: req.body['footer.email'],
-                            hours: req.body['footer.hours']
+                             dnumber: req.body['footer.dnumber'] || req.body.dnumber,
+                            streetname: req.body['footer.streetname'] || req.body.streetname,
+                            city: req.body['footer.city'] || req.body.city,
+                            district: req.body['footer.district'] || req.body.district,
+                            state: req.body['footer.state'] || req.body.state,
+                            zipcode: req.body['footer.zipcode'] || req.body.zipcode,
+                            primaryphone: req.body['footer.primaryphone'] || req.body.primaryphone || req.body['footer.phone'],
+                            secondaryphone: req.body['footer.secondaryphone'] || req.body.secondaryphone,
+                            supportemail: req.body['footer.email'] || req.body.supportemail || req.body.email,
+                            workinghours: req.body['footer.hours'] || req.body.workinghours || req.body.hours,
                         }
                     }
                 }
@@ -330,7 +337,7 @@ function deleteDeep(obj, path){
     const last = parts[parts.length - 1];
     const lastIdx = Number.isInteger(+last) ? +last : last;
     if (Array.isArray(cur) && typeof lastIdx === 'number') {
-        cur[lastIdx] = null;
+        cur.splice(lastIdx, 1);
     } else {
         delete cur[lastIdx];
     }
@@ -374,6 +381,38 @@ pagerouter.post('/api/pages/update-field', upload.single('file'), async (req, re
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Update failed' });
+    }
+});
+
+/* ================= ADD ARRAY ITEM ================= */
+pagerouter.post('/api/pages/add-array-item', express.json(), async (req, res) => {
+    try {
+        const { path, value } = req.body;
+        if (!path) return res.status(400).json({ error: 'Missing path' });
+
+        const pageDoc = await PageHeader.findOne().sort({ _id: -1 });
+        if (!pageDoc) return res.status(404).json({ error: 'No PageHeader found' });
+
+        // Navigate to the array
+        const parts = path.split('.').filter(Boolean);
+        let cur = pageDoc.pages;
+        for (let i = 0; i < parts.length; i++) {
+            if (!cur[parts[i]]) cur[parts[i]] = [];
+            cur = cur[parts[i]];
+        }
+
+        if (!Array.isArray(cur)) {
+            return res.status(400).json({ error: 'Target is not an array' });
+        }
+
+        cur.push(value);
+        pageDoc.markModified('pages');
+        await pageDoc.save();
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Add failed' });
     }
 });
 

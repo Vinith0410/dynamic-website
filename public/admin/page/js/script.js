@@ -1,32 +1,67 @@
 
+let allRibbons = [];
+let ribbonSelects = [];
+
 async function loadRibbons() {
     try {
         const res = await fetch('/rippon/api/ribbons');
-        const ribbons = await res.json();
-        // console.log(ribbons)
-        const selects = [
-            document.getElementById('ribbonSelect1'),
-            document.getElementById('ribbonSelect2')
-        ];
-
-        selects.forEach(select => {
-            select.innerHTML = '<option value="">Select Ribbon</option>';
-
-            ribbons.forEach(ribbon => {
-                const option = document.createElement('option');
-                option.value = ribbon;
-                option.textContent =
-                    ribbon.charAt(0).toUpperCase() + ribbon.slice(1);
-                select.appendChild(option);
-            });
-        });
-
+        allRibbons = await res.json();
     } catch (err) {
         console.error('Ribbon load failed', err);
     }
 }
 
 loadRibbons();
+
+const ribbonCountInput = document.getElementById('ribbonCount');
+if (ribbonCountInput) {
+    ribbonCountInput.addEventListener('input', generateRibbonFields);
+}
+
+function generateRibbonFields() {
+    const count = parseInt(this.value);
+    const container = document.getElementById('ribbonContainer');
+    container.innerHTML = '';
+    ribbonSelects = [];
+
+    if (!count || count < 1) return;
+
+    for (let i = 1; i <= count; i++) {
+        const label = document.createElement('label');
+        label.textContent = `Ribbon ${i}`;
+
+        const select = document.createElement('select');
+        select.name = `ribbon${i}`;
+        select.addEventListener('change', renderRibbonDropdowns);
+
+        container.appendChild(label);
+        container.appendChild(select);
+
+        ribbonSelects.push(select);
+    }
+
+    renderRibbonDropdowns();
+}
+
+function renderRibbonDropdowns() {
+    const selectedValues = ribbonSelects.map(sel => sel.value);
+
+    ribbonSelects.forEach((select, index) => {
+        const currentValue = select.value;
+        select.innerHTML = '<option value="">Select Ribbon</option>';
+
+        allRibbons.forEach(ribbon => {
+            const usedElsewhere = selectedValues.some((v, i) => i !== index && v === ribbon);
+            if (!usedElsewhere || ribbon === currentValue) {
+                const option = document.createElement('option');
+                option.value = ribbon;
+                option.textContent = ribbon.charAt(0).toUpperCase() + ribbon.slice(1);
+                if (ribbon === currentValue) option.selected = true;
+                select.appendChild(option);
+            }
+        });
+    });
+}
 
 /* ================= CATEGORY LOGIC ================= */
 let allCategories = [];

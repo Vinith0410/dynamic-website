@@ -290,8 +290,12 @@ async function addToCart(productId) {
 
     // Check if user needs to login (401 Unauthorized)
     if (res.status === 401 || !data.success) {
-      if (data.message && data.message.includes('login')) {
+      if (data.message && data.message.includes('login') || res.status === 401) {
         // User not logged in
+        // Store pending item to add after login
+        localStorage.setItem('pendingCartItem', productId);
+        localStorage.setItem('needCartRedirect', 'true');
+        
         if (confirm('You are not logged in. Please login first to add items to cart. Click OK to go to login page.')) {
           window.location.href = data.redirect || '/login';
         }
@@ -312,6 +316,8 @@ async function addToCart(productId) {
   } catch (error) {
     console.error('Add to cart error:', error);
     // Check if it's a network error or unauthorized
+    localStorage.setItem('pendingCartItem', productId);
+    localStorage.setItem('needCartRedirect', 'true');
     alert('You need to login first to add items to cart. Redirecting to login page...');
     setTimeout(() => {
       window.location.href = '/login';

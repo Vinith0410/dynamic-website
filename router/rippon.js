@@ -154,8 +154,12 @@ ripponrouter.get('/api/home-ribbon-products', async (req, res) => {
       return res.json({ primary: null, secondary: null });
     }
 
-    const ribbonPrimary = page.pages?.page1?.ribbonPrimary || null;
-    const ribbonSecondary = page.pages?.page1?.ribbonSecondary || null;
+    const page1 = page.pages?.page1 || {};
+    const ribbonsArr = Array.isArray(page1.ribbons) ? page1.ribbons : [];
+
+    // Prefer explicit primary/secondary, otherwise fall back to first two from ribbons array
+    const ribbonPrimary = page1.ribbonPrimary || ribbonsArr[0] || null;
+    const ribbonSecondary = page1.ribbonSecondary || ribbonsArr[1] || null;
 
     const primaryProducts = ribbonPrimary
       ? await Product.find({ ribbon: new RegExp(`^${ribbonPrimary}$`, 'i') })

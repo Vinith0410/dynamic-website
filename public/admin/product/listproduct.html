@@ -10,6 +10,43 @@
 
 <h1>All Products</h1>
 
+<div class="filter-bar">
+  <div class="filter-group">
+    <label>Category</label>
+    <select id="filterCategory">
+      <option value="">All</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Ribbon</label>
+    <select id="filterRibbon">
+      <option value="">All</option>
+      <option value="Trending">Trending</option>
+      <option value="New Arrival">New Arrival</option>
+      <option value="Sale">Sale</option>
+      <option value="Hot">Hot</option>
+      <option value="Featured">Featured</option>
+      <option value="Limited">Limited</option>
+      <option value="Best">Best</option>
+      <option value="Offer">Offer</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Search By</label>
+    <select id="filterKey">
+      <option value="id">ID</option>
+      <option value="name">Name</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Search</label>
+    <input type="text" id="filterValue" placeholder="Type id or name...">
+  </div>
+</div>
+
 <div id="productGrid" class="product-grid"></div>
 
 

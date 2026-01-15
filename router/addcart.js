@@ -10,6 +10,11 @@ function getUserId(req) {
   return req.session.userId;
 }
 
+router.get('/whatsapp-number', (req, res) => {
+  const mobileNumber = process.env.MOBILE_NUMBER || '';
+  res.json({ mobileNumber });
+});
+
 /* ================== ADD TO CART ================== */
 router.post('/add', isAuthenticated, async (req, res) => {
   try {

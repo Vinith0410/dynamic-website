@@ -1,12 +1,25 @@
 /* ================= CART MANAGEMENT ================= */
 
 let cart = null;
+let whatsappNumber = '';
+
+async function loadWhatsAppNumber() {
+  try {
+    const res = await fetch('/cart/whatsapp-number');
+    const data = await res.json();
+    if (data.mobileNumber) {
+      whatsappNumber = data.mobileNumber;
+    }
+  } catch (error) {
+    console.error('Failed to load WhatsApp number:', error);
+  }
+}
 
 // Load cart on page load
 async function loadCart() {
   try {
     const res = await fetch('/cart/get');
-    
+
     // Check if user is not logged in
     if (res.status === 401) {
       const data = await res.json();
@@ -14,9 +27,9 @@ async function loadCart() {
       window.location.href = data.redirect || '/login';
       return;
     }
-    
+
     const data = await res.json();
-    
+
     if (data.success) {
       cart = data.cart;
       renderCart();
@@ -34,14 +47,13 @@ async function loadCart() {
     setTimeout(() => {
       window.location.href = '/login';
     }, 1500);
-    
+
     if (window.preloaderUtils) {
       window.preloaderUtils.hide();
     }
   }
 }
 
-// Render cart items
 function renderCart() {
   const cartItems = document.getElementById('cartItems');
   const emptyCart = document.getElementById('emptyCart');
@@ -68,7 +80,7 @@ function renderCart() {
   cartItems.innerHTML = cart.items.map(item => {
     const subtotal = item.price * item.quantity;
     const deliveryCharge = parseFloat(item.deliveryCharge) || 0;
-    
+
     return `
       <tr class="cart-item">
         <td class="product-info">
@@ -89,8 +101,8 @@ function renderCart() {
             <button class="qty-btn" onclick="updateQuantity('${item.productId}', ${item.quantity - 1})">
               <i class="fas fa-minus"></i>
             </button>
-            <input type="number" value="${item.quantity}" min="1" 
-              onchange="updateQuantity('${item.productId}', this.value)" 
+            <input type="number" value="${item.quantity}" min="1"
+              onchange="updateQuantity('${item.productId}', this.value)"
               class="qty-input">
             <button class="qty-btn" onclick="updateQuantity('${item.productId}', ${item.quantity + 1})">
               <i class="fas fa-plus"></i>
@@ -107,8 +119,74 @@ function renderCart() {
     `;
   }).join('');
 
-  // Update summary
   updateSummary();
+}
+
+function buildWhatsAppMessage() {
+  if (!cart || !cart.items || cart.items.length === 0) {
+    return '';
+  }
+
+  let lines = [];
+  lines.push('New order from website');
+  lines.push('');
+  cart.items.forEach((item, index) => {
+    const lineIndex = index + 1;
+    const quantity = item.quantity;
+    const price = item.price;
+    const subtotal = price * quantity;
+    const productId = item.productId;
+    lines.push(
+      lineIndex +
+        '. ' +
+        item.name +
+        ' | ID: ' +
+        productId +
+        ' | Qty: ' +
+        quantity +
+        ' | Price: ₹' +
+        price +
+        ' | Subtotal: ₹' +
+        subtotal.toFixed(2)
+    );
+  });
+
+  const subtotal = cart.totalPrice;
+  const deliveryCharges = cart.items.reduce((sum, item) => {
+    const charge = parseFloat(item.deliveryCharge) || 0;
+    return sum + charge;
+  }, 0);
+  const total = subtotal + deliveryCharges;
+
+  lines.push('');
+  lines.push('Subtotal: ₹' + subtotal.toFixed(2));
+  lines.push('Delivery: ₹' + deliveryCharges.toFixed(2));
+  lines.push('Total: ₹' + total.toFixed(2));
+
+  return lines.join('\n');
+}
+
+function startWhatsAppOrder() {
+  if (!cart || !cart.items || cart.items.length === 0) {
+    alert('Your cart is empty.');
+    return;
+  }
+
+  if (!whatsappNumber) {
+    alert('WhatsApp number is not configured.');
+    return;
+  }
+
+  const message = buildWhatsAppMessage();
+  if (!message) {
+    return;
+  }
+
+  const encodedMessage = encodeURIComponent(message);
+  const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+  const url = 'https://wa.me/' + cleanNumber + '?text=' + encodedMessage;
+
+  window.open(url, '_blank');
 }
 
 // Update cart summary
@@ -117,13 +195,13 @@ function updateSummary() {
 
   const totalQuantity = cart.totalQuantity;
   const subtotal = cart.totalPrice;
-  
+
   // Calculate total delivery charges
   const deliveryCharges = cart.items.reduce((sum, item) => {
     const charge = parseFloat(item.deliveryCharge) || 0;
     return sum + charge;
   }, 0);
-  
+
   const total = subtotal + deliveryCharges;
 
   document.getElementById('totalQuantity').textContent = totalQuantity;
@@ -135,7 +213,7 @@ function updateSummary() {
 // Update quantity
 async function updateQuantity(productId, newQuantity) {
   newQuantity = parseInt(newQuantity);
-  
+
   if (newQuantity < 1) {
     alert('Quantity must be at least 1');
     return;
@@ -149,7 +227,7 @@ async function updateQuantity(productId, newQuantity) {
     });
 
     const data = await res.json();
-    
+
     if (data.success) {
       cart = data.cart;
       renderCart();
@@ -176,7 +254,7 @@ async function removeItem(productId) {
     });
 
     const data = await res.json();
-    
+
     if (data.success) {
       cart = data.cart;
       renderCart();
@@ -203,7 +281,7 @@ async function clearCart() {
     });
 
     const data = await res.json();
-    
+
     if (data.success) {
       cart = data.cart;
       renderCart();
@@ -226,13 +304,13 @@ function showNotification(message, type = 'info') {
     <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
     <span>${message}</span>
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   setTimeout(() => {
     notification.classList.add('show');
   }, 100);
-  
+
   setTimeout(() => {
     notification.classList.remove('show');
     setTimeout(() => {
@@ -241,6 +319,12 @@ function showNotification(message, type = 'info') {
   }, 3000);
 }
 
-// Initialize
-window.addEventListener('DOMContentLoaded', loadCart);
+window.addEventListener('DOMContentLoaded', async () => {
+  await loadWhatsAppNumber();
+  loadCart();
+  const checkoutBtn = document.querySelector('.btn-checkout');
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', startWhatsAppOrder);
+  }
+});
 

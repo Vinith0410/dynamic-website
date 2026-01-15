@@ -375,7 +375,7 @@
 /* ================= NOTIFICATION ================= */
 .notification {
   position: fixed;
-  top: 20px;
+  top: 80px;
   right: -400px;
   background: white;
   padding: 16px 24px;

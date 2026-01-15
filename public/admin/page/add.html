@@ -57,17 +57,17 @@
 
         <div class="input-group">
           <label>Icon / Image</label>
-          <input type="file" name="feature1img" required>
+          <input type="file" name="feature1img" >
         </div>
 
         <div class="input-group">
           <label>Title</label>
-          <input type="text" name="feature1title" placeholder="Fast Delivery" required>
+          <input type="text" name="feature1title" placeholder="Fast Delivery" >
         </div>
 
         <div class="input-group">
           <label>Subheading</label>
-          <input type="text" name="feature1subtitle" placeholder="Quick and reliable service" required>
+          <input type="text" name="feature1subtitle" placeholder="Quick and reliable service" >
         </div>
       </div>
 
@@ -77,17 +77,17 @@
 
         <div class="input-group">
           <label>Icon / Image</label>
-          <input type="file" name="feature2img" required>
+          <input type="file" name="feature2img" >
         </div>
 
         <div class="input-group">
           <label>Title</label>
-          <input type="text" name="feature2title" placeholder="Safe & Secure" required>
+          <input type="text" name="feature2title" placeholder="Safe & Secure" >
         </div>
 
         <div class="input-group">
           <label>Subheading</label>
-          <input type="text" name="feature2subtitle" placeholder="100% safe payments" required>
+          <input type="text" name="feature2subtitle" placeholder="100% safe payments" >
         </div>
       </div>
 
@@ -97,17 +97,17 @@
 
         <div class="input-group">
           <label>Icon / Image</label>
-          <input type="file" name="feature3img" required>
+          <input type="file" name="feature3img" >
         </div>
 
         <div class="input-group">
           <label>Title</label>
-          <input type="text" name="feature3title" placeholder="Gift Wrapping" required>
+          <input type="text" name="feature3title" placeholder="Gift Wrapping" >
         </div>
 
         <div class="input-group">
           <label>Subheading</label>
-          <input type="text" name="feature3subtitle" placeholder="Beautiful gift packaging" required>
+          <input type="text" name="feature3subtitle" placeholder="Beautiful gift packaging" >
         </div>
       </div>
 
@@ -117,32 +117,27 @@
 
         <div class="input-group">
           <label>Icon / Image</label>
-          <input type="file" name="feature4img" required>
+          <input type="file" name="feature4img" >
         </div>
 
         <div class="input-group">
           <label>Title</label>
-          <input type="text" name="feature4title" placeholder="24/7 Support" required>
+          <input type="text" name="feature4title" placeholder="24/7 Support" >
         </div>
 
         <div class="input-group">
           <label>Subheading</label>
-          <input type="text" name="feature4subtitle" placeholder="Always here to help" required>
+          <input type="text" name="feature4subtitle" placeholder="Always here to help" >
         </div>
       </div>
 
     </div>
 
-    <!-- RIBBON -->
-    <label>Ribbon (Primary)</label>
-    <select name="ribbonPrimary" id="ribbonSelect1">
-        <option value="">Select Ribbon</option>
-    </select>
+    <!-- RIBBONS -->
+    <label>Number of Ribbons</label>
+    <input type="number" id="ribbonCount" min="1" placeholder="Enter ribbon count">
 
-    <label>Ribbon (Secondary)</label>
-    <select name="ribbonSecondary" id="ribbonSelect2">
-        <option value="">Select Ribbon</option>
-    </select>
+    <div id="ribbonContainer"></div>
 
     <!-- 🔥 NEW FIELD -->
 <label>Number of Categories</label>
@@ -219,33 +214,33 @@
 
       <div class="input-group">
         <label><b>Mission Title</b></label>
-        <input type="text" name="missiontitle" placeholder="Our Mission" required>
+        <input type="text" name="missiontitle" placeholder="Our Mission">
       </div>
 
       <div class="input-group">
         <label>Mission Description</label>
-        <textarea name="missiondescription" placeholder="Brief description about your mission" required></textarea>
+        <textarea name="missiondescription" placeholder="Brief description about your mission"></textarea>
       </div>
 
       <div class="points-grid">
         <div class="input-group">
           <label>Mission Point 1</label>
-          <input type="text" name="mission1" placeholder="point title" required>
+          <input type="text" name="mission1" placeholder="point title">
           <input type="text" name="mission1description" placeholder="point description">
         </div>
         <div class="input-group">
           <label>Mission Point 2</label>
-          <input type="text" name="mission2" placeholder="point title" required>
+          <input type="text" name="mission2" placeholder="point title">
           <input type="text" name="mission2description" placeholder="point description">
         </div>
         <div class="input-group">
           <label>Mission Point 3</label>
-          <input type="text" name="mission3" placeholder="point title" required>
+          <input type="text" name="mission3" placeholder="point title">
           <input type="text" name="mission3description" placeholder="point description">
         </div>
         <div class="input-group">
           <label>Mission Point 4</label>
-          <input type="text" name="mission4" placeholder="point title" required>
+          <input type="text" name="mission4" placeholder="point title">
           <input type="text" name="mission4description" placeholder="point description">
         </div>
       </div>
@@ -260,33 +255,33 @@
 
       <div class="input-group">
         <label><b>Vision Title</b></label>
-        <input type="text" name="visiontitle" placeholder="Our Vision title" required>
+        <input type="text" name="visiontitle" placeholder="Our Vision title" >
       </div>
 
       <div class="input-group">
         <label>Vision Description</label>
-        <textarea name="visiondescription" placeholder="Brief description about your vision" required></textarea>
+        <textarea name="visiondescription" placeholder="Brief description about your vision"></textarea>
       </div>
 
       <div class="points-grid">
         <div class="input-group">
           <label>Vision Point 1</label>
-          <input type="text" name="vision1" placeholder="point title" required>
+          <input type="text" name="vision1" placeholder="point title">
           <input type="text" name="vision1description" placeholder="point description">
         </div>
         <div class="input-group">
           <label>Vision Point 2</label>
-          <input type="text" name="vision2" placeholder="point title" required>
+          <input type="text" name="vision2" placeholder="point title">
           <input type="text" name="vision2description" placeholder="point description">
         </div>
         <div class="input-group">
           <label>Vision Point 3</label>
-          <input type="text" name="vision3" placeholder="point title" required>
+          <input type="text" name="vision3" placeholder="point title">
           <input type="text" name="vision3description" placeholder="point description">
         </div>
         <div class="input-group">
           <label>Vision Point 4</label>
-          <input type="text" name="vision4" placeholder="point title" required>
+          <input type="text" name="vision4" placeholder="point title">
           <input type="text" name="vision4description" placeholder="point description">
         </div>
       </div>
@@ -335,7 +330,7 @@
         <div class="image-preview-box">
           Image Upload
         </div>
-        <input type="file" name="deliveryimg" required>
+        <input type="file" name="deliveryimg" >
       </div>
 
       <!-- DIVIDER -->
@@ -346,17 +341,17 @@
 
         <div class="point-group">
           <label>Point 1</label>
-          <input type="text" name="points1" placeholder="Enter point 1" required>
+          <input type="text" name="points1" placeholder="Enter point 1">
         </div>
 
         <div class="point-group">
           <label>Point 2</label>
-                  <input type="text" name="points2" placeholder="Enter point 2" required>
+          <input type="text" name="points2" placeholder="Enter point 2">
         </div>
 
         <div class="point-group">
           <label>Point 3</label>
-          <input type="text" name="points3" placeholder="Enter point 3" required>
+          <input type="text" name="points3" placeholder="Enter point 3">
         </div>
 
         <div class="point-group">
@@ -495,7 +490,7 @@
     </div>
 
     <!-- COLUMN 4 -->
-    <div class="card">
+    <!-- <div class="card">
       <h2>Contact Info</h2>
 
       <div class="input">
@@ -511,7 +506,7 @@
       <div class="input">
         <label>Email</label>
         <input name="footer.email" placeholder="Enter your brand email">
-      </div>
+      </div> -->
 
       <div class="input">
         <label>Store Hours</label>
