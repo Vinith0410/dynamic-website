@@ -5,12 +5,30 @@ const user = require("../model/Admin.js")
 const adminrouter = express.Router();
 require('dotenv').config();
 
-/* ================== CHECK LOGIN STATUS ================== */
+function getUserIdFromCookie(req) {
+  const cookieHeader = req.headers.cookie || '';
+  if (!cookieHeader) return null;
+  const parts = cookieHeader.split(';');
+  for (const part of parts) {
+    const trimmed = part.trim();
+    if (!trimmed) continue;
+    const eqIndex = trimmed.indexOf('=');
+    if (eqIndex === -1) continue;
+    const name = trimmed.substring(0, eqIndex);
+    const value = trimmed.substring(eqIndex + 1);
+    if (name === 'userId') {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+}
+
 adminrouter.get('/check-auth', (req, res) => {
-  if (req.session && req.session.userId) {
-    res.json({ 
-      isLoggedIn: true, 
-      userId: req.session.userId 
+  const userId = getUserIdFromCookie(req);
+  if (userId) {
+    res.json({
+      isLoggedIn: true,
+      userId
     });
   } else {
     res.json({ isLoggedIn: false });
@@ -183,11 +201,19 @@ adminrouter.post("/login", async(req,res)=>{
     }
     const ismatch = await bcryptjs.compare(password,userid.password)
     if(ismatch){
-      req.session.userId= userid._id;
+      const adminMail = (process.env.ADMIN_MAIL || '').trim().toLowerCase();
+      const isAdminUser = adminMail && String(userid.email || '').trim().toLowerCase() === adminMail;
+      const redirectUrl = isAdminUser ? "/controls" : "/";
+
+      res.cookie('userId', userid._id.toString(), {
+        httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        sameSite: 'lax'
+      });
       res.send(`
          <script>
           alert("Successfully logged in!");
-          window.location.href = "/";
+          window.location.href = "${redirectUrl}";
         </script>
         `)
     }else{

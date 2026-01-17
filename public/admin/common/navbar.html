@@ -5,9 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Controls</title>
 <link rel="stylesheet" href="/public/admin/common/css/navbar.css">
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#4f46e5,#6366f1);
+    margin:0;
+    padding:70px 16px 30px;
+}
+.dashboard{
+    background:#ffffff;
+    width:100%;
+    max-width:1000px;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.2);
+    margin:0 auto;
+}
+.dashboard h2{
+    text-align:center;
+    color:#111827;
+    margin-bottom:6px;
+    font-size:26px;
+}
+.dashboard p{
+    text-align:center;
+    color:#6b7280;
+    margin-bottom:30px;
+    font-size:14px;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+}
+.card{
+    background:#f9fafb;
+    border-radius:14px;
+    padding:22px;
+    text-decoration:none;
+    color:#111827;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    transition:all .25s ease;
+    border:1px solid #e5e7eb;
+}
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 30px rgba(79,70,229,.25);
+    border-color:#6366f1;
+}
+.card span{
+    font-size:14px;
+    color:#6b7280;
+}
+.card strong{
+    font-size:17px;
+    margin-top:6px;
+}
+.footer{
+    text-align:center;
+    margin-top:30px;
+    font-size:13px;
+    color:#6b7280;
+}
+</style>
 </head>
 
 <body>
+
+<div class="admin-top-nav">
+    <div class="brand">Admin Panel</div>
+    <button class="admin-nav-toggle" onclick="toggleAdminNav()">☰</button>
+    <div class="links" id="adminNavLinks">
+        <a href="/controls">Dashboard</a>
+        <a href="/list">Pages</a>
+        <a href="/add-product">Add Product</a>
+        <a href="/listproduct">Products</a>
+        <a href="/category">Add Category</a>
+        <a href="/listcategory">View Categories</a>
+        <a href="/rippon">Add Ribbons</a>
+        <a href="/listrippon">View Ribbons</a>
+        <a href="/">View Site</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
 
 <div class="dashboard">
     <h2>Admin Controls</h2>
@@ -69,6 +158,13 @@
         © Admin Panel – Secure Controls
     </div>
 </div>
+
+<script>
+function toggleAdminNav(){
+  var links=document.getElementById("adminNavLinks");
+  if(links){links.classList.toggle("open");}
+}
+</script>
 
 </body>
 </html>

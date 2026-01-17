@@ -285,9 +285,12 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .about-text{
+    text-align: center;
+  }
   .why-us {
     grid-template-columns: 1fr;
-    text-align: center;
+    /* text-align: center; */
   }
 
   .why-us img {

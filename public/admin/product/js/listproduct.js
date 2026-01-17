@@ -17,6 +17,7 @@ async function loadProducts(){
         }
 
         buildCategoryOptions();
+        buildRibbonOptions();
         renderProducts(allProducts);
 
         categorySelect.addEventListener('change', applyFilters);
@@ -47,6 +48,21 @@ function buildCategoryOptions(){
     });
 }
 
+function buildRibbonOptions(){
+    const set = new Set();
+    allProducts.forEach(p=>{
+        if (p.ribbon) {
+            set.add(p.ribbon);
+        }
+    });
+    Array.from(set).sort().forEach(r=>{
+        const opt = document.createElement('option');
+        opt.value = r;
+        opt.textContent = r;
+        ribbonSelect.appendChild(opt);
+    });
+}
+
 function renderProducts(list){
     grid.innerHTML = '';
 
@@ -72,6 +88,10 @@ function renderProducts(list){
         const categoriesText = Array.isArray(p.category) ? p.category.join(', ') : (p.category || '');
         const subCategoriesText = Array.isArray(p.subCategory) ? p.subCategory.join(', ') : (p.subCategory || '');
 
+        const rawColors = Array.isArray(p.colors) ? p.colors : (p.colors ? [p.colors] : []);
+        const hasCustomColors = rawColors.length && !(rawColors.length === 1 && rawColors[0] === '#000000');
+        const colorsText = hasCustomColors ? rawColors.join(', ') : 'Default product color';
+
         card.innerHTML = `
             ${p.ribbon ? `<div class="ribbon ${ribbonClass}">${p.ribbon}</div>` : ``}
 
@@ -85,7 +105,8 @@ function renderProducts(list){
                 <div class="meta">
                     <strong>ID:</strong> ${p._id}<br>
                     <strong>Category:</strong> ${categoriesText}<br>
-                    <strong>Sub Category:</strong> ${subCategoriesText}
+                    <strong>Sub Category:</strong> ${subCategoriesText}<br>
+                    <strong>Colors:</strong> ${colorsText}
                 </div>
 
                 <div class="desc">${p.description}</div>

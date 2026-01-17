@@ -12,7 +12,12 @@ const productSchema = new mongoose.Schema({
     discount: { type: Number, default: 0 },
     delivery: { type: String, default: 'Free delivery • 2-3 days' },
     deliveryCharge: { type: String, default: '0' },
+    hasDeliveryCharge: { type: Boolean, default: true },
     stock: { type: String, default: 'in' },
+    colors: {
+        type: [String],
+        default: ['#000000']
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

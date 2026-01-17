@@ -4,9 +4,27 @@
 <meta charset="UTF-8">
 <title>All Products</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/admin/common/css/navbar.css">
 <link rel="stylesheet" href="/public/admin/product/css/listproduct.css">
 </head>
 <body>
+
+<div class="admin-top-nav">
+  <div class="brand">Admin Panel</div>
+  <button class="admin-nav-toggle" onclick="toggleAdminNav()">☰</button>
+  <div class="links" id="adminNavLinks">
+    <a href="/controls">Dashboard</a>
+    <a href="/list">Pages</a>
+    <a href="/add-product">Add Product</a>
+    <a href="/listproduct">Products</a>
+    <a href="/category">Add Category</a>
+    <a href="/listcategory">View Categories</a>
+    <a href="/rippon">Add Ribbons</a>
+    <a href="/listrippon">View Ribbons</a>
+    <a href="/">View Site</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
 
 <h1>All Products</h1>
 
@@ -22,14 +40,6 @@
     <label>Ribbon</label>
     <select id="filterRibbon">
       <option value="">All</option>
-      <option value="Trending">Trending</option>
-      <option value="New Arrival">New Arrival</option>
-      <option value="Sale">Sale</option>
-      <option value="Hot">Hot</option>
-      <option value="Featured">Featured</option>
-      <option value="Limited">Limited</option>
-      <option value="Best">Best</option>
-      <option value="Offer">Offer</option>
     </select>
   </div>
 
@@ -51,6 +61,12 @@
 
 
 <script src="/public/admin/product/js/listproduct.js"></script>
+<script>
+function toggleAdminNav(){
+  var links=document.getElementById("adminNavLinks");
+  if(links){links.classList.toggle("open");}
+}
+</script>
 
 </body>
 </html>

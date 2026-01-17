@@ -169,6 +169,28 @@
   font-weight: 600;
 }
 
+.color-cell {
+  min-width: 140px;
+}
+
+.cart-color-select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5f5;
+  font-size: 13px;
+  background: #f8fafc;
+}
+
+.cart-color-default {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.delivery-cell {
+  min-width: 120px;
+}
+
 .price-details {
   display: flex;
   align-items: center;
@@ -262,6 +284,11 @@
   font-size: 18px;
   font-weight: 700;
   color: #3b82f6;
+}
+
+.subtotal-breakup{
+  font-size: 13px;
+  color: #64748b;
 }
 
 /* ================= ACTION BUTTONS ================= */

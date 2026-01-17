@@ -99,18 +99,43 @@
 /* Mobile */
 @media (max-width: 768px) {
   .timeline::before {
-    left: 20px;
+    left: 16px;
   }
 
   .timeline-item {
     width: 100%;
-    padding-left: 60px;
-    padding-right: 20px;
+     padding: 20px 16px 20px 50px;
     text-align: left;
     left: 0 !important;
   }
 
+  /* Dot position */
   .timeline-item::before {
-    left: 12px !important;
+    left: 8px !important;
+    right: auto !important;
+    top: 32px;
   }
+
+  /* Card text alignment */
+  .timeline-card,
+  .timeline-card h4,
+  .timeline-card p {
+    text-align: left !important;   /* 🔥 FIX Service / Trust */
+  }
+
+    /* Remove left/right behavior completely */
+  .timeline-item.left,
+  .timeline-item.right {
+    text-align: left !important;
+  }
+
+  .timeline-item.left {
+    right: 50%;
+    align-items: left;
+  }
+
+    .timeline-card {
+    width: 100%;
+  }
+
 }

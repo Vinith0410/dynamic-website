@@ -3,10 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Product Upload</title>
+<link rel="stylesheet" href="/public/admin/common/css/navbar.css">
 <link rel="stylesheet" href="/public/admin/product/css/product.css">
 
 </head>
 <body>
+
+<div class="admin-top-nav">
+  <div class="brand">Admin Panel</div>
+  <button class="admin-nav-toggle" onclick="toggleAdminNav()">☰</button>
+  <div class="links" id="adminNavLinks">
+    <a href="/controls">Dashboard</a>
+    <a href="/list">Pages</a>
+    <a href="/add-product">Add Product</a>
+    <a href="/listproduct">Products</a>
+    <a href="/category">Add Category</a>
+    <a href="/listcategory">View Categories</a>
+    <a href="/rippon">Add Ribbons</a>
+    <a href="/listrippon">View Ribbons</a>
+    <a href="/">View Site</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
 
 <div class="card">
 <h1>Product Upload</h1>
@@ -41,6 +59,10 @@
 <div id="subCategoryContainer"></div>
 <button type="button" class="icon-btn add" onclick="addSubCategory()">+</button>
 
+<label>Colors</label>
+<div id="colorContainer"></div>
+<button type="button" class="icon-btn add" onclick="addColor()">+</button>
+
 <label>Product Description</label>
 <textarea name="description" placeholder="Enter product description" required></textarea>
 
@@ -67,6 +89,12 @@
 <label>Delivery Charges (Optional)</label>
 <input type="text" name="deliveryCharge" placeholder="Enter delivery charges">
 
+<label>Delivery Charge?</label>
+<div class="radio-group">
+<label><input type="radio" name="deliveryChargeEnabled" value="yes" checked> Yes</label>
+<label><input type="radio" name="deliveryChargeEnabled" value="no"> No (Free Delivery)</label>
+</div>
+
 <!-- STOCK -->
 <label>Stock Status</label>
 <div class="radio-group">
@@ -80,6 +108,12 @@
 </div>
 
 <script src="/public/admin/product/js/product.js"></script>
+<script>
+function toggleAdminNav(){
+  var links=document.getElementById("adminNavLinks");
+  if(links){links.classList.toggle("open");}
+}
+</script>
 
 </body>
 </html>

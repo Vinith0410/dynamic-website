@@ -125,25 +125,28 @@
 @media (max-width: 768px) {
 
   #slider {
-    height: 65vh; /* better mobile height */
+    height: 70vh; /* better mobile height */
   }
 
   .slide img {
-    object-fit: contain;   /* SHOW FULL IMAGE */
+    object-fit: cover;   /* SHOW FULL IMAGE */
+    width: 100%;
+    height: 100%;
     background: #9a9a9a;   /* fill empty space */
+    object-position: center;
   }
 
   .slide::after {
     background: linear-gradient(
       to bottom,
-      rgba(2,6,23,.75),
-      rgba(2,6,23,.55)
+            rgba(2,6,23,.7),
+      rgba(2,6,23,.4)
     );
   }
 
   .hero-content {
     align-items: center;
-    /* padding-bottom: 20px; */
+    padding-bottom: 40px;
   }
 
   .hero-inner {

@@ -31,12 +31,25 @@ async function loadProduct(){
         inp.checked = (inp.value === (productData.stock || 'in'));
     });
 
-    // ribbon
+    const hasDeliveryCharge = (typeof productData.hasDeliveryCharge === 'boolean')
+        ? productData.hasDeliveryCharge
+        : !!(productData.deliveryCharge && productData.deliveryCharge !== '0');
+
+    document.querySelectorAll('input[name="deliveryChargeEnabled"]').forEach(inp=>{
+        inp.checked = (inp.value === (hasDeliveryCharge ? 'yes' : 'no'));
+    });
+
     ribbonSelect.value = productData.ribbon || '';
 
-    // categories
     productData.category.forEach(c => addCategory(c));
     productData.subCategory.forEach(s => addSubCategory(s));
+
+    const colors = Array.isArray(productData.colors) ? productData.colors : [];
+    if (colors.length) {
+        colors.forEach(c => addColor(c));
+    } else {
+        addColor();
+    }
 
     updateSubCategories();
 }
@@ -105,6 +118,28 @@ function addSubCategory(value=''){
     subCategoryContainer.appendChild(group);
 
     updateSubCategories(value);
+}
+
+function addColor(value=''){
+    const container = document.getElementById('colorContainer');
+
+    const group = document.createElement('div');
+    group.className = 'field-group';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.name = 'colors';
+    nameInput.placeholder = 'Color name or hex code';
+    nameInput.value = value || '';
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'icon-btn remove';
+    remove.textContent = '✖';
+    remove.onclick = ()=> group.remove();
+
+    group.append(nameInput, remove);
+    container.appendChild(group);
 }
 
 /* ===== UPDATE SUB CATEGORIES ===== */

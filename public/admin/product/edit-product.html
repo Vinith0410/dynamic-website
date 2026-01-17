@@ -4,12 +4,30 @@
 <meta charset="UTF-8">
 <title>Edit Product</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/admin/common/css/navbar.css">
 <link rel="stylesheet" href="/public/admin/product/css/editproduct.css">
 <style>
 
 </style>
 </head>
 <body>
+
+<div class="admin-top-nav">
+  <div class="brand">Admin Panel</div>
+  <button class="admin-nav-toggle" onclick="toggleAdminNav()">☰</button>
+  <div class="links" id="adminNavLinks">
+    <a href="/controls">Dashboard</a>
+    <a href="/list">Pages</a>
+    <a href="/add-product">Add Product</a>
+    <a href="/listproduct">Products</a>
+    <a href="/category">Add Category</a>
+    <a href="/listcategory">View Categories</a>
+    <a href="/rippon">Add Ribbons</a>
+    <a href="/listrippon">View Ribbons</a>
+    <a href="/">View Site</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
 
 <div class="card">
 <h1>Edit Product</h1>
@@ -43,6 +61,10 @@
 <div id="subCategoryContainer"></div>
 <button type="button" class="icon-btn add" onclick="addSubCategory()">+</button>
 
+<label>Colors</label>
+<div id="colorContainer"></div>
+<button type="button" class="icon-btn add" onclick="addColor()">+</button>
+
 <!-- DESCRIPTION -->
 <label>Description</label>
 <textarea name="description" required></textarea>
@@ -70,6 +92,12 @@
 <label>Delivery Charges (Optional)</label>
 <input type="text" name="deliveryCharge" placeholder="Enter delivery charges">
 
+<label>Delivery Charge?</label>
+<div class="radio-group">
+<label><input type="radio" name="deliveryChargeEnabled" value="yes"> Yes</label>
+<label><input type="radio" name="deliveryChargeEnabled" value="no"> No (Free Delivery)</label>
+</div>
+
 <!-- STOCK -->
 <label>Stock Status</label>
 <div class="radio-group">
@@ -82,6 +110,12 @@
 </div>
 
 <script src="/public/admin/product/js/editproduct.js"></script>
+<script>
+function toggleAdminNav(){
+  var links=document.getElementById("adminNavLinks");
+  if(links){links.classList.toggle("open");}
+}
+</script>
 
 </body>
 </html>

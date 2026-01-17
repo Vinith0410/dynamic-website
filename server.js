@@ -15,6 +15,7 @@ const productrouter = require("./router/product.js")
 const categoryrouter = require("./router/category.js")
 const ripponrouter = require("./router/rippon.js")
 const cartrouter = require("./router/addcart.js")
+const { isAdmin } = require("./middleware/auth")
 
 require('dotenv').config();
 
@@ -99,28 +100,28 @@ app.get("/verify-forgot-otp" , (req, res)=>{
 app.get("/reset-password" , (req, res)=>{
     res.sendFile(path.join(__dirname,"./public/auth/reset-password.html"))
 })
-app.get('/add', (req, res) => res.sendFile(path.join(__dirname, '/public/admin/page/add.html')));
-app.get('/add-product', (req, res) => res.sendFile(path.join(__dirname, '/public/admin/product/product.html')));
-app.get('/controls', (req, res) => res.sendFile(path.join(__dirname, '/public/admin/common/navbar.html')));
+app.get('/add', isAdmin, (req, res) => res.sendFile(path.join(__dirname, '/public/admin/page/add.html')));
+app.get('/add-product', isAdmin, (req, res) => res.sendFile(path.join(__dirname, '/public/admin/product/product.html')));
+app.get('/controls', isAdmin, (req, res) => res.sendFile(path.join(__dirname, '/public/admin/common/navbar.html')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/pages/home/home.html')));
 app.get('/about', (req, res) => res.sendFile(path.join(__dirname, './public/pages/about/about.html')));
 app.get('/our-product', (req, res) => res.sendFile(path.join(__dirname, './public/pages/product/product.html')));
 app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, './public/pages/contact/contact.html')));
 app.get('/cart', (req, res) => res.sendFile(path.join(__dirname, './public/pages/cart/cart.html')));
-app.get('/category', (req, res) => res.sendFile(path.join(__dirname, '/public/admin/category/category.html')));
-app.get('/rippon', (req, res) => res.sendFile(path.join(__dirname, '/public/admin/rippon/rippon.html')));
-app.get('/listcategory',(req,res)=>res.sendFile(path.join(__dirname, '/public/admin/category/listcategory.html')));
-app.get('/listproduct',(req,res)=>res.sendFile(path.join(__dirname, '/public/admin/product/listproduct.html')));
-app.get('/edit-product',(req,res)=>res.sendFile(path.join(__dirname, '/public/admin/product/edit-product.html')));
-app.get('/list',(req,res)=>res.sendFile(path.join(__dirname, '/public/admin/page/list.html')));
-app.get('/deleted',(req,res)=>res.sendFile(path.join(__dirname, '/public/admin/restore/deleted.html')));
-app.get('/listrippon', (req, res) =>res.sendFile(path.join(__dirname, '/public/admin/rippon/listrippon.html')));
+app.get('/category', isAdmin, (req, res) => res.sendFile(path.join(__dirname, '/public/admin/category/category.html')));
+app.get('/rippon', isAdmin, (req, res) => res.sendFile(path.join(__dirname, '/public/admin/rippon/rippon.html')));
+app.get('/listcategory', isAdmin, (req,res)=>res.sendFile(path.join(__dirname, '/public/admin/category/listcategory.html')));
+app.get('/listproduct', isAdmin, (req,res)=>res.sendFile(path.join(__dirname, '/public/admin/product/listproduct.html')));
+app.get('/edit-product', isAdmin, (req,res)=>res.sendFile(path.join(__dirname, '/public/admin/product/edit-product.html')));
+app.get('/list', isAdmin, (req,res)=>res.sendFile(path.join(__dirname, '/public/admin/page/list.html')));
+app.get('/deleted', isAdmin, (req,res)=>res.sendFile(path.join(__dirname, '/public/admin/restore/deleted.html')));
+app.get('/listrippon', isAdmin, (req, res) =>res.sendFile(path.join(__dirname, '/public/admin/rippon/listrippon.html')));
 
 
 /* ================== Log out  ================== */
 
 app.get("/logout", (req,res)=>{
-  req.session.destroy();
+  res.clearCookie('userId');
   res.send(`
    <script>
           alert("logout successfully");

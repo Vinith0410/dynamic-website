@@ -19,8 +19,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-//productadd
-productrouter.post('/add', upload.single('image'), async (req, res) => {
+const { isAdmin } = require('../middleware/auth');
+
+productrouter.post('/add', isAdmin, upload.single('image'), async (req, res) => {
     try {
         const {
             name,
@@ -33,22 +34,30 @@ productrouter.post('/add', upload.single('image'), async (req, res) => {
             discount,
             delivery,
             deliveryCharge,
-            stock
+            stock,
+            deliveryChargeEnabled,
+            colors
         } = req.body;
 
-        // Ensure category is an array
         const categoryArray = category
             ? (Array.isArray(category) ? category : [category])
             : [];
 
-        // Ensure subCategory is an array
-      // Ensure subCategory is an array
-            const subCategoryArray = subcategory
-                ? (Array.isArray(subcategory) ? subcategory : [subcategory])
-                : [];
+        const subCategoryArray = subcategory
+            ? (Array.isArray(subcategory) ? subcategory : [subcategory])
+            : [];
 
-            console.log(subCategoryArray)
-        const product = new Product({
+        const rawColors = colors;
+        const colorArray = rawColors
+            ? (Array.isArray(rawColors) ? rawColors : [rawColors])
+                .map(c => c.trim())
+                .filter(Boolean)
+            : [];
+
+        const hasDeliveryCharge = (deliveryChargeEnabled || 'yes') === 'yes';
+        const finalDeliveryCharge = hasDeliveryCharge ? (deliveryCharge || '0') : '0';
+
+        const productData = {
             image: req.file.filename,
             name,
             ribbon,
@@ -59,9 +68,16 @@ productrouter.post('/add', upload.single('image'), async (req, res) => {
             price,
             discount,
             delivery,
-            deliveryCharge,
+            deliveryCharge: finalDeliveryCharge,
+            hasDeliveryCharge,
             stock
-        });
+        };
+
+        if (colorArray.length) {
+            productData.colors = colorArray;
+        }
+
+        const product = new Product(productData);
 
         await product.save();
 
@@ -99,16 +115,25 @@ productrouter.get('/api/product/:id', async (req, res) => {
 });
 
 
-// Update Product
-productrouter.post('/api/product/update/:id', upload.single('image'), async (req, res) => {
+productrouter.post('/api/product/update/:id', isAdmin, upload.single('image'), async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product) return res.status(404).send('Product not found');
 
         const {
-            name, ribbon, category, subCategory,
-            description, price, oldPrice, discount, delivery,
-            deliveryCharge, stock
+            name,
+            ribbon,
+            category,
+            subCategory,
+            description,
+            price,
+            oldPrice,
+            discount,
+            delivery,
+            deliveryCharge,
+            stock,
+            deliveryChargeEnabled,
+            colors
         } = req.body;
 
         if (req.file) {
@@ -128,8 +153,28 @@ productrouter.post('/api/product/update/:id', upload.single('image'), async (req
         product.oldPrice = oldPrice;
         product.discount = discount;
         product.delivery = delivery;
-        product.deliveryCharge = deliveryCharge ?? product.deliveryCharge;
+        if (typeof deliveryChargeEnabled !== 'undefined') {
+            const hasDeliveryCharge = deliveryChargeEnabled === 'yes';
+            product.hasDeliveryCharge = hasDeliveryCharge;
+            product.deliveryCharge = hasDeliveryCharge
+                ? (typeof deliveryCharge !== 'undefined' ? deliveryCharge : product.deliveryCharge)
+                : '0';
+        } else if (typeof deliveryCharge !== 'undefined') {
+            product.deliveryCharge = deliveryCharge;
+        }
         product.stock = stock ?? product.stock;
+
+        if (typeof colors !== 'undefined') {
+            const colorArray = (Array.isArray(colors) ? colors : [colors])
+                .map(c => c.trim())
+                .filter(Boolean);
+
+            if (colorArray.length) {
+                product.colors = colorArray;
+            } else {
+                product.colors = ['#000000'];
+            }
+        }
 
         await product.save();
 
@@ -147,8 +192,7 @@ productrouter.post('/api/product/update/:id', upload.single('image'), async (req
     }
 });
 
-//delete product
-productrouter.post('/api/product/delete/:id', async (req, res) => {
+productrouter.post('/api/product/delete/:id', isAdmin, async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product) return res.json({ success:false });

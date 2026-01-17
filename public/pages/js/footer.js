@@ -30,8 +30,16 @@ async function loadFooter(){
     });
 
     const quick = f.quickLinks || [];
-    const routes = ['/home','/about','/services','/contact'];
-    footerQuick.innerHTML = quick.map((t,i)=>`<li><a href="${routes[i]||'#'}">${t}</a></li>`).join('');
+    const routes = [
+      '/',             // Home
+      '/about',        // About
+      '/our-product',  // Our Product
+      '/contact'       // Contact
+    ];
+
+    footerQuick.innerHTML = quick
+      .map((text, i) => `<li><a href="${routes[i] || '#'}">${text}</a></li>`)
+      .join('');
     const cats = f.categories || [];
     footerCats.innerHTML = cats.map(c=>`<li><a href="/our-product?category=${encodeURIComponent(c)}">${c}</a></li>`).join('');
     const contact = f.contact || {};

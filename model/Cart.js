@@ -34,6 +34,9 @@ const cartItemSchema = new mongoose.Schema({
   deliveryCharge: {
     type: String,
     default: '0'
+  },
+  color: {
+    type: String
   }
 }, { timestamps: true });
 

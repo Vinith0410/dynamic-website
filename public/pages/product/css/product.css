@@ -285,6 +285,32 @@
   color: #721c24;
 }
 
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.color-label {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.color-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.color-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.8);
+}
+
 /* ADD TO CART BUTTON */
 .add-cart {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

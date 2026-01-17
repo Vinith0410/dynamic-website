@@ -67,7 +67,8 @@ input, select{
     margin-bottom:8px;
 }
 
-.field-group select{
+.field-group select,
+.field-group input{
     flex:1;
 }
 

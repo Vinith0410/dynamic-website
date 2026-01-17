@@ -239,6 +239,40 @@ function displayPage(pageNum) {
 
     const catBadge = Array.isArray(p.category) ? p.category.join(', ') : p.category;
 
+
+  // const rawColors = Array.isArray(p.colors) ? p.colors : (p.colors ? [p.colors] : []);
+  // const hasCustomColors = rawColors.length && !(rawColors.length === 1 && rawColors[0] === '#000000');
+  // const colorsText = hasCustomColors ? rawColors.join(', ') : 'Default product color';
+    // const rawColors = Array.isArray(p.colors) ? p.colors : (p.colors ? [p.colors] : []);
+    // const hasCustomColors = rawColors.length && !(rawColors.length === 1 && rawColors[0] === '#000000');
+    // const colorLabel = hasCustomColors ? 'Available colors' : 'Product color';
+    // const colorsToShow = hasCustomColors ? rawColors : ['#000000'];
+    // const colorDots = colorsToShow.map(c => {
+    //   const safeColor = c || '#000000';
+    //   return `<span class="color-dot" style="background-color:${safeColor}" title="${safeColor}"></span>`;
+    // }).join('');
+
+    const rawColors = Array.isArray(p.colors)
+  ? p.colors
+  : (p.colors ? [p.colors] : []);
+
+const isOnlyDefaultColor =
+  rawColors.length === 1 && rawColors[0] === '#000000';
+
+let colorHTML = '';
+
+if (isOnlyDefaultColor || rawColors.length === 0) {
+  // TEXT instead of color circle
+  colorHTML = `<span class="default-color-text">Product default color</span>`;
+} else {
+  // SHOW COLOR CIRCLES
+  colorHTML = rawColors.map(c => {
+    const safeColor = c || '#000000';
+    return `<span class="color-dot" style="background-color:${safeColor}" title="${safeColor}"></span>`;
+  }).join('');
+}
+
+
     container.innerHTML += `
       <div class="product-card">
         ${p.ribbon ? `<div class="ribbon ${ribbonClass}">${p.ribbon}</div>` : ''}
@@ -258,9 +292,17 @@ function displayPage(pageNum) {
             <span class="discount">${p.discount}% OFF</span>
           </div>
           <div class="delivery">${p.delivery}</div>
-          <div class="charge">💸 Delivery Charge: ₹${p.deliveryCharge || 0}</div>
+          <div class="charge">${
+            (p.hasDeliveryCharge && p.deliveryCharge && p.deliveryCharge !== '0')
+              ? `💸 Delivery Charge: ₹${p.deliveryCharge}`
+              : '✅ Free delivery'
+          }</div>
           <div class="stock-badge ${p.stock==='out' ? 'stock-out' : 'stock-in'}">
             ${p.stock==='out' ? 'Out of Stock' : 'In Stock'}
+          </div>
+
+          <div class="color-row">
+            Available Colors : ${colorHTML}
           </div>
 
           <button class="add-cart" onclick="addToCart('${p._id}')">
@@ -295,13 +337,13 @@ async function addToCart(productId) {
         // Store pending item to add after login
         localStorage.setItem('pendingCartItem', productId);
         localStorage.setItem('needCartRedirect', 'true');
-        
+
         if (confirm('You are not logged in. Please login first to add items to cart. Click OK to go to login page.')) {
           window.location.href = data.redirect || '/login';
         }
         return;
       }
-      
+
       // Other error
       alert(data.message || 'Failed to add to cart');
       return;
@@ -330,7 +372,7 @@ async function updateCartCount() {
   try {
     const res = await fetch('/cart/count');
     const data = await res.json();
-    
+
     if (data.success) {
       // Update cart count in navigation if element exists
       const cartCountEl = document.getElementById('cartCount');
@@ -354,13 +396,13 @@ function showNotification(message, type = 'success') {
     <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
     <span>${message}</span>
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   setTimeout(() => {
     notification.classList.add('show');
   }, 100);
-  
+
   setTimeout(() => {
     notification.classList.remove('show');
     setTimeout(() => {

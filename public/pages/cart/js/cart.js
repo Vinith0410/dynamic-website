@@ -15,7 +15,6 @@ async function loadWhatsAppNumber() {
   }
 }
 
-// Load cart on page load
 async function loadCart() {
   try {
     const res = await fetch('/cart/get');
@@ -32,7 +31,7 @@ async function loadCart() {
 
     if (data.success) {
       cart = data.cart;
-      renderCart();
+      await renderCart();
     }
 
     // Hide preloader
@@ -54,7 +53,7 @@ async function loadCart() {
   }
 }
 
-function renderCart() {
+async function renderCart() {
   const cartItems = document.getElementById('cartItems');
   const emptyCart = document.getElementById('emptyCart');
   const cartTableWrapper = document.getElementById('cartTableWrapper');
@@ -76,10 +75,51 @@ function renderCart() {
   cartSummary.style.display = 'block';
   clearCartBtn.style.display = 'inline-flex';
 
-  // Render cart items
+  const ids = [...new Set(cart.items.map(item => item.productId))];
+  const productMap = {};
+
+  await Promise.all(ids.map(async id => {
+    try {
+      const res = await fetch(`/product/api/product/${id}`);
+      if (res.ok) {
+        productMap[id] = await res.json();
+      }
+    } catch (error) {
+    }
+  }));
+
   cartItems.innerHTML = cart.items.map(item => {
-    const subtotal = item.price * item.quantity;
+
+    const productSubtotal = item.price * item.quantity;
     const deliveryCharge = parseFloat(item.deliveryCharge) || 0;
+    const itemSubtotal = productSubtotal + deliveryCharge;
+
+
+    const product = productMap[item.productId] || {};
+    const rawColors = Array.isArray(product.colors) ? product.colors : (product.colors ? [product.colors] : []);
+    const hasCustomColors = rawColors.length && !(rawColors.length === 1 && rawColors[0] === '#000000');
+    const colorsToShow = hasCustomColors ? rawColors : ['#000000'];
+
+    let colorCellHtml = '';
+
+    if (hasCustomColors) {
+      const options = colorsToShow.map(c => {
+        const selected = item.color === c ? 'selected' : '';
+        return `<option value="${c}" ${selected}>${c}</option>`;
+      }).join('');
+      colorCellHtml = `
+        <select class="cart-color-select" onchange="changeItemColor('${item.productId}', this.value)">
+          ${options}
+        </select>
+      `;
+    } else {
+      colorCellHtml = `<span class="cart-color-default">Product color</span>`;
+    }
+
+    const hasDeliveryCharge = deliveryCharge > 0;
+    const deliveryText = hasDeliveryCharge
+      ? `₹${deliveryCharge.toFixed(2)}`
+      : 'Free delivery';
 
     return `
       <tr class="cart-item">
@@ -95,6 +135,12 @@ function renderCart() {
             ` : ''}
           </div>
         </td>
+        <td class="color-cell">
+          ${colorCellHtml}
+        </td>
+        <td class="delivery-cell">
+          ${deliveryText}
+        </td>
         <td class="price">₹${item.price}</td>
         <td class="quantity-cell">
           <div class="quantity-control">
@@ -109,7 +155,15 @@ function renderCart() {
             </button>
           </div>
         </td>
-        <td class="subtotal">₹${subtotal.toFixed(2)}</td>
+
+          <td class="subtotal">
+          ₹${itemSubtotal.toFixed(2)}
+          <div class="subtotal-breakup">
+            <small>Product: ₹${productSubtotal.toFixed(2)}</small><br>
+            <small>Delivery: ₹${deliveryCharge.toFixed(2)}</small>
+          </div>
+        </td>
+
         <td class="action">
           <button class="btn-remove" onclick="removeItem('${item.productId}')">
             <i class="fas fa-trash"></i>
@@ -136,6 +190,7 @@ function buildWhatsAppMessage() {
     const price = item.price;
     const subtotal = price * quantity;
     const productId = item.productId;
+    const color = item.color ? item.color : 'Default';
     lines.push(
       lineIndex +
         '. ' +
@@ -144,6 +199,8 @@ function buildWhatsAppMessage() {
         productId +
         ' | Qty: ' +
         quantity +
+        ' | Color: ' +
+        color +
         ' | Price: ₹' +
         price +
         ' | Subtotal: ₹' +
@@ -230,7 +287,7 @@ async function updateQuantity(productId, newQuantity) {
 
     if (data.success) {
       cart = data.cart;
-      renderCart();
+      await renderCart();
       showNotification('Quantity updated successfully', 'success');
     } else {
       alert(data.message || 'Failed to update quantity');
@@ -257,7 +314,7 @@ async function removeItem(productId) {
 
     if (data.success) {
       cart = data.cart;
-      renderCart();
+      await renderCart();
       showNotification('Item removed from cart', 'success');
     } else {
       alert(data.message || 'Failed to remove item');
@@ -284,7 +341,7 @@ async function clearCart() {
 
     if (data.success) {
       cart = data.cart;
-      renderCart();
+      await renderCart();
       showNotification('Cart cleared successfully', 'success');
     } else {
       alert(data.message || 'Failed to clear cart');
@@ -319,9 +376,31 @@ function showNotification(message, type = 'info') {
   }, 3000);
 }
 
+async function changeItemColor(productId, color) {
+  try {
+    const res = await fetch('/cart/update-color', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId, color })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      cart = data.cart;
+      showNotification('Color updated successfully', 'success');
+    } else {
+      alert(data.message || 'Failed to update color');
+    }
+  } catch (error) {
+    console.error('Update color error:', error);
+    alert('Failed to update color');
+  }
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
   await loadWhatsAppNumber();
-  loadCart();
+  await loadCart();
   const checkoutBtn = document.querySelector('.btn-checkout');
   if (checkoutBtn) {
     checkoutBtn.addEventListener('click', startWhatsAppOrder);

@@ -28,6 +28,7 @@ async function loadRibbons(){
 
 loadCategories();
 loadRibbons();
+addColor();
 
 /* DISCOUNT CALCULATION */
 const priceInput = document.getElementById('priceInput');
@@ -101,6 +102,28 @@ function addSubCategory(){
     container.appendChild(group);
 
     updateSubCategories();
+}
+
+function addColor(value=''){
+    const container = document.getElementById('colorContainer');
+
+    const group = document.createElement('div');
+    group.className = 'field-group';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.name = 'colors';
+    nameInput.placeholder = 'Color name or hex code';
+    nameInput.value = value || '';
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'icon-btn remove';
+    remove.textContent = '✖';
+    remove.onclick = ()=> group.remove();
+
+    group.append(nameInput, remove);
+    container.appendChild(group);
 }
 
 /* 🔥 CORE FIXED LOGIC */

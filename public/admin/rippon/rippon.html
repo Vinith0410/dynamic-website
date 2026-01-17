@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <title>Professional Dynamic Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/admin/common/css/navbar.css">
     <link rel="stylesheet" href="/public/admin/rippon/css/rippon.css">
 </head>
 <body>
+
+<div class="admin-top-nav">
+  <div class="brand">Admin Panel</div>
+  <button class="admin-nav-toggle" onclick="toggleAdminNav()">☰</button>
+  <div class="links" id="adminNavLinks">
+    <a href="/controls">Dashboard</a>
+    <a href="/list">Pages</a>
+    <a href="/add-product">Add Product</a>
+    <a href="/listproduct">Products</a>
+    <a href="/category">Add Category</a>
+    <a href="/listcategory">View Categories</a>
+    <a href="/rippon">Add Ribbons</a>
+    <a href="/listrippon">View Ribbons</a>
+    <a href="/">View Site</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
 
 <div class="form-container">
     <h2>Dynamic Input Form</h2>
@@ -25,6 +43,12 @@
 </div>
 
 <script src="/public/admin/rippon/js/rippon.js"></script>
+<script>
+function toggleAdminNav(){
+  var links=document.getElementById("adminNavLinks");
+  if(links){links.classList.toggle("open");}
+}
+</script>
 
 </body>
 </html>
